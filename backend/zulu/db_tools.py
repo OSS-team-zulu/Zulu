@@ -2,7 +2,7 @@ from dynaconf import settings
 from pymongo import GEOSPHERE, MongoClient
 
 
-def points_db() -> None:
+def points_db():
     client = MongoClient(settings.MONGO_URI).geo_data
     collection = client.points
 
@@ -10,7 +10,7 @@ def points_db() -> None:
     yield collection
 
 
-def init_db() -> None:
+def init_db():
     client = MongoClient(settings.MONGO_URI).geo_data
     collection = client.points
     collection.create_index([("location", GEOSPHERE)])

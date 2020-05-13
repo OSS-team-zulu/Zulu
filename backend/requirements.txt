@@ -1,4 +1,5 @@
-FastAPI
+fastapi
 uvicorn
 dynaconf
 pymongo
+geojson

@@ -1,10 +1,10 @@
-from typing import Any, List
+from typing import List
 
 from fastapi import APIRouter, Depends, status
 from geojson import Point
 
-from db_tools import points_db
-from models import UserLocation, UserLocationResponse
+from zulu.db_tools import points_db
+from zulu.models import UserLocation, UserLocationResponse
 
 api = APIRouter()
 
@@ -13,7 +13,7 @@ api = APIRouter()
 def get_points(db=Depends(points_db),
                longitude: float = 0.0,
                latitude: float = 0.0,
-               max_distance: int = 5000) -> Any:
+               max_distance: int = 5000):
     points = [
         point for point in db.find({
             "location": {

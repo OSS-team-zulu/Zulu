@@ -1,8 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
 
-import routes
-from db_tools import init_db
+from zulu import routes
+from zulu.db_tools import init_db
 
 app = FastAPI(title='Zulu app', )
 
