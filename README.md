@@ -1,8 +1,30 @@
 # Zulu app
 
+## About the app
+
+### Zulu - A Local exploration App
+
+**A social platform that allows viewing stories based on geographical location**
+
+ - A local social app where people can share (anonymously or otherwise) personal histories attached to specific locations. Ranging from historical tidbits and recommendations to personal stories about life events or emotions connected to this location.
+ - Users can become tourists in familiar locations, viewing the world through other's eyes, as well as a more intimate peak into
+ - main interface is a map of local stories.
+	 - Maybe only the immediate surroundings can be seen?
+
+## Project & Team Info
+
+#### Roles
+ - FE Architect & Team Lead - **Joshua Herskowitz**
+ - BE Architect & DevOps - **Nadav Goldin**
+ - Frameworks + QA  - **Batkiller Ariel**
+ - Security - **Nitai Mordechai**
+ - Data Science & BI - **Matanel Oren**
+
+#### Kanban
+[https://github.com/OSS-team-zulu/Zulu/projects/1](https://github.com/OSS-team-zulu/Zulu/projects/1)
 
 
-## Running the backend
+# Running the backend
 1. Make sure you have mkvirtualenv/git/python3.8/docker-compose installed
 2. Installing requirements (one time)
 ```bash
