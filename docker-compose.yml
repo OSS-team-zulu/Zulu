@@ -11,4 +11,22 @@ services:
     restart: always
     ports:
       - 8081:8081
+  zulu-frontend:
+    image: zulu-frontend
+    restart: always
+    ports:
+      - 8085:80
+    build:
+      context: ./frontend/zulu
+      dockerfile: Dockerfile
+  zulu-backend:
+    image: zulu-backend
+    restart: always
+    ports:
+     - 8086:8342
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      - ENV_FOR_DYNACONF=compose
 
