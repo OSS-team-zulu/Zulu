@@ -1,3 +1,5 @@
 [default]
 MONGO_URI = "mongodb://localhost:27017/"
 
+[compose]
+MONGO_URI = "mongodb://mongo:27017"
