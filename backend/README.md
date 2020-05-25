@@ -17,7 +17,7 @@
    ```
 4. Starting MongoDB
    ```shell
-   docker-compose -d up mongo
+   docker-compose up -d mongo
    ```
 5. Running the API server:
    ```shell

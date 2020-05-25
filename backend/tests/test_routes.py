@@ -83,3 +83,14 @@ def test_get_points_two_results(db_data, test_data, client):
     assert len(result) == 2
     users = sorted([entry["user_id"] for entry in result])
     assert users == ["Jerusalem", "Tel Aviv"]
+
+
+def test_get_contributors(client):
+    response = client.get('/api/contributors')
+    response.raise_for_status()
+    result = response.json()
+    assert len(result) == 1
+    assert result == [{
+        'name': 'nvg',
+        'github_profile': 'https://github.com/nvgoldin'
+    }]

@@ -1,7 +1,7 @@
 from typing import List
 
 from geojson import Point
-from pydantic import BaseModel
+from pydantic import BaseModel, HttpUrl
 
 
 class UserLocation(BaseModel):
@@ -21,3 +21,8 @@ class GeoJSONPoint(BaseModel):
 class UserLocationResponse(BaseModel):
     location: GeoJSONPoint
     user_id: str
+
+
+class Contributors(BaseModel):
+    name: str
+    github_profile: HttpUrl

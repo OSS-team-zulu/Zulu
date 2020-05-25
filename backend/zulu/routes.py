@@ -4,8 +4,7 @@ from fastapi import APIRouter, Depends, status
 from geojson import Point
 
 from zulu.db_tools import points_db
-from zulu.models import UserLocation, UserLocationResponse
-
+from zulu.models import UserLocation, UserLocationResponse, Contributors
 api = APIRouter()
 
 
@@ -31,3 +30,8 @@ def get_points(db=Depends(points_db),
 def create_point(location: UserLocation, db=Depends(points_db)):
     db.insert({"location": location.as_point(), "user_id": location.user_id})
     return {}
+
+
+@api.get("/contributors", response_model=List[Contributors])
+def get_contributors():
+    return ({'name': "nvg", 'github_profile': "https://github.com/nvgoldin"}, )
