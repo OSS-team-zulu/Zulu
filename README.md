@@ -21,7 +21,7 @@ The application is in early development stage, right now you can run:
 * The frontend, based on React
 * Deployment based on Docker/Docker-compose
 
-There is still no connectivity between the two. 
+There is still no connectivity between the Backend and Frontend.  
 
 
 ### Running Zulu locally
@@ -46,7 +46,7 @@ If you hit a bug - open an issue under this repository.
 ### Contributing code
 Code contributions are welcomed!
 
-First, read our guidelines at [Backend](./backend/README.md) and [Frontend](./fronted/README.md) in order to setup a development environment. 
+First, read our guidelines at [Backend](./backend/README.md) and [Frontend](./frontend/README.md) in order to setup a development environment. 
 
 Afterwards:
 1. Fork this repository
