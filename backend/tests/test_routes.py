@@ -91,6 +91,5 @@ def test_get_contributors(client):
     result = response.json()
     assert len(result) == 1
     assert result == [{
-        'name': 'nvg',
-        'github_profile': 'https://github.com/nvgoldin'
-    }]
+        'name': 'nitai_m',
+        'github_profile': 'https://github.com/Nitay880'}]
