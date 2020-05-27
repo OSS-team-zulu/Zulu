@@ -89,7 +89,5 @@ def test_get_contributors(client):
     response = client.get('/api/contributors')
     response.raise_for_status()
     result = response.json()
-    assert len(result) == 1
-    assert result == [{
-        'name': 'nitai_m',
-        'github_profile': 'https://github.com/Nitay880'}]
+    assert len(result) == 2
+    assert result == [{'name': "nvg", 'github_profile': "https://github.com/nvgoldin"},{'name': 'nitai_m','github_profile': 'https://github.com/Nitay880'}]

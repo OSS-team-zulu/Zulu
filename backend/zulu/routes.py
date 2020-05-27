@@ -34,4 +34,4 @@ def create_point(location: UserLocation, db=Depends(points_db)):
 
 @api.get("/contributors", response_model=List[Contributors])
 def get_contributors():
-    return ({'name':"nitai_m", 'github_profile': "https://github.com/Nitay880"}, )
+    return ({'name': "nvg", 'github_profile': "https://github.com/nvgoldin"},{'name':"nitai_m", 'github_profile': "https://github.com/Nitay880"})
