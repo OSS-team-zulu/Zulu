@@ -1,6 +1,7 @@
 # Zulu app
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+![Backend unit tests](https://github.com/OSS-team-zulu/Zulu/workflows/Backend%20unit%20tests/badge.svg?branch=master)
 
 ## About the app
 
