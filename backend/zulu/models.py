@@ -38,7 +38,7 @@ class UserLocation(BaseModel):
     user_location: Location
     user_story:UserStory
     def as_point(self):
-        return user_location.as_point()    
+        return self.user_location.as_point()    
 
 class GeoJSONPoint(BaseModel):
     type: str = 'Point'
