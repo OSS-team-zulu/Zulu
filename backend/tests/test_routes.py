@@ -14,6 +14,9 @@ def client():
 def db():
     yield next(db_tools.points_db())
 
+@pytest.fixture
+def user_db():
+    yield next(db_tools.user_db())
 
 @pytest.fixture
 def test_data():
@@ -37,7 +40,6 @@ def test_data():
         "user_id": "New York"
     }]
 
-
 @pytest.fixture
 def db_data(db, test_data):
     db.delete_many({})
@@ -48,7 +50,18 @@ def test_get_points_basic(client):
     response = client.get("/api/point")
     assert response.status_code == 200
 
-
+def test_new_user(client,user_db,):
+    user={
+           "user_id":123 ,
+    "user_pass":321  ,
+    "user_mail": "n@m",
+       }
+    response = client.post("/api/create_user",json=user)
+    assert {"added":True} not in response
+def test_new_post(client,db,):
+    #TODO: create it
+    pass 
+    
 @pytest.mark.parametrize("user_id", ["Jerusalem", "New York", "Tel Aviv"])
 def test_get_points_one_result(db_data, test_data, client, user_id):
     coordinates = [
@@ -83,6 +96,14 @@ def test_get_points_two_results(db_data, test_data, client):
     assert len(result) == 2
     users = sorted([entry["user_id"] for entry in result])
     assert users == ["Jerusalem", "Tel Aviv"]
+
+
+
+
+
+
+
+
 
 
 def test_get_contributors(client):
