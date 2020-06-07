@@ -47,4 +47,8 @@ def get_contributors():
             'name': "nitay",
             'github_profile': "https://github.com/Nitay880"
         },
+        {
+           'name': "matanel",
+           'github_profile': "https://github.com/matanel-oren"
+        }
     )
