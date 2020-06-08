@@ -1,0 +1,44 @@
+@import url("../../../node_modules/leaflet/dist/leaflet.css");
+@import url("../../../node_modules/react-leaflet-markercluster/dist/styles.css");
+
+body,
+#root,
+.leaflet-container {
+    height: 100vh;
+    width: 100vw;
+}
+
+.zoom-slider {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.basemaps-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    height: auto;
+    width: auto;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.basemaps-container select {
+    width: 200px;
+    height: 20px;
+}
+
+.geojson-toggle {
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    z-index: 1000;
+    margin-top: 20px;
+    background: white;
+    font-size: 14px;
+    padding: 4px;
+    border-radius: 3px;
+}
