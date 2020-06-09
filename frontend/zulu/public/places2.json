@@ -1,0 +1,40 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "scalerank": 1,
+                "name": " קבר שמואל הנביא",
+                "story_title": "דחקות אצל שמואל",
+                "story_content": "may god bless the zulu team",
+                "featureclass": "cape"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.184155,
+                    31.831685
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "scalerank": 1,
+                "name": " קבר שמואל הנביא",
+                "story_title": "בדייט עם מלאך",
+                "story_content": "may god bless the zulu team and give them hope and honesty Optional. Specifies the data type expected of the server response. By default jQuery performs an automatic guess. Possible types:",
+                "img_url":"https://www.tropy.co.il/tropy/images/style/angels/img3.jpg",
+                "featureclass": "cape"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.184155,
+                    31.831685
+                ]
+            }
+        }
+    ]
+}

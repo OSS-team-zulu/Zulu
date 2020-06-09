@@ -8,9 +8,11 @@
 }
 
 .App-header {
+  display: flex;
+  margin: auto;
   background-color: #222;
-  height: 150px;
-  padding: 20px;
+  height: fit-content;
+  padding: 4px;
   color: white;
 }
 
