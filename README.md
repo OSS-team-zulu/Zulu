@@ -20,9 +20,12 @@
 The application is in early development stage, right now you can run: 
 * The backend, based on Python/FastAPI/MongoDB
 * The frontend, based on React
-* Deployment based on Docker/Docker-compose
+* Deployment based on docker/docker-compose
 
-There is still no connectivity between the Backend and Frontend.  
+Available functionality:
+* View user stories on the map
+* Get new user stories when changing your location
+
 
 
 ### Running Zulu locally

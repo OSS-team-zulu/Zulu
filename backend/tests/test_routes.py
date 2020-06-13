@@ -1,4 +1,5 @@
 import pytest
+from fastapi import status
 from fastapi.testclient import TestClient
 
 from zulu import db_tools
@@ -18,23 +19,35 @@ def db():
 @pytest.fixture
 def test_data():
     return [{
-        "location": {
+        "geometry": {
             "type": "Point",
             "coordinates": [34.8562505, 32.1423376],
         },
-        "user_id": "Tel Aviv"
+        "user_id": "Tel Aviv",
+        "story": {
+            'content': 'Tel Aviv',
+            'title': 'TEL AVIV'
+        },
     }, {
-        "location": {
+        "geometry": {
             "type": "Point",
             "coordinates": [35.23702, 31.790886, 0],
         },
-        "user_id": "Jerusalem"
+        "user_id": "Jerusalem",
+        "story": {
+            'content': 'JERUSALEM',
+            'title': 'JERUSALEM'
+        },
     }, {
-        "location": {
+        "geometry": {
             "type": "Point",
             "coordinates": [-74.071789, 40.6409],
         },
-        "user_id": "New York"
+        "user_id": "New York",
+        "story": {
+            'content': 'NEW YORK',
+            'title': 'New York'
+        },
     }]
 
 
@@ -52,14 +65,14 @@ def test_get_points_basic(client):
 @pytest.mark.parametrize("user_id", ["Jerusalem", "New York", "Tel Aviv"])
 def test_get_points_one_result(db_data, test_data, client, user_id):
     coordinates = [
-        entry["location"]["coordinates"] for entry in test_data
+        entry["geometry"]["coordinates"] for entry in test_data
         if entry["user_id"] == user_id
     ].pop()
     response = client.get("/api/point",
                           params={
                               "longitude": coordinates[0],
                               "latitude": coordinates[1],
-                              "max_distance": 20
+                              "max_distance": 20,
                           })
     response.raise_for_status()
     result = response.json()
@@ -67,9 +80,27 @@ def test_get_points_one_result(db_data, test_data, client, user_id):
     assert result[0]['user_id'] == user_id
 
 
+def test_create_point_basic(test_data, client):
+    jerusalem = [data for data in test_data
+                 if data['user_id'] == 'Jerusalem'].pop()
+
+    data = {
+        'longitude': jerusalem['geometry']['coordinates'][0],
+        'latitude': jerusalem['geometry']['coordinates'][1],
+        'user_id': 'Jerusalem',
+        'story': {
+            'content': 'JERUSALEM',
+            'title': 'jerusalem'
+        }
+    }
+    response = client.post('/api/point', json=data)
+    response.raise_for_status()
+    assert response.status_code == status.HTTP_201_CREATED
+
+
 def test_get_points_two_results(db_data, test_data, client):
     coordinates = [
-        entry["location"]["coordinates"] for entry in test_data
+        entry["geometry"]["coordinates"] for entry in test_data
         if entry["user_id"] == "Jerusalem"
     ].pop()
     response = client.get("/api/point",

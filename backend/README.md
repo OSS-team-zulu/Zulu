@@ -26,8 +26,17 @@
    ```
 6. Log into http://0.0.0.0:8342/docs to see the API docs
 
+### Loading sample data
 
-### Running the tests tests
+In order to load a sample data from Israel
+1. Make sure your API server and MongoDB are running
+2. Run:
+```python
+python contrib/load_points.py
+```
+
+
+### Running the tests
 1. Make sure MongoDB is up (**warning**: the tests would remove its data)
 2. Run:
    ```bash

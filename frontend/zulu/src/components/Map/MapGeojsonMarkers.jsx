@@ -9,16 +9,20 @@ import {usePosition} from '../Position_getter/use_position'
 L.Icon.Default.imagePath = "https://unpkg.com/leaflet@1.5.0/dist/images/";
 
 class MapComponent extends React.Component {
-    state = {
-        lat: 31.8181237,
-        lng: 35.2072444,
-        zoom: 14,
-        basemap: 'dark',
-        time: Date.now(),
-        geojsonvisible: false,
+    constructor(props) {
+        super(props);
 
-    };
+        this.state = {
+            lat: 0.00,
+            lng: 0.00,
+            zoom: 14,
+            basemap: 'dark',
+            time: Date.now(),
+            geojsonvisible: false,
 
+        };
+
+    }
 
     onBMChange = (bm) => {
         this.setState({
@@ -46,28 +50,32 @@ class MapComponent extends React.Component {
         console.log(coords)
     };
 
+    setLocationState() {
 
-    componentDidMount() {
+         navigator.geolocation.getCurrentPosition((position) => {
+            this.setState({lat: position.coords.latitude, lng: position.coords.longitude})
+          },
+           (error) => {},
+           {enableHighAccuracy: true, timeout: 20000, maximumAge: 10000}
+          );
 
-        const geo = navigator.geolocation;
-
-        const watcher = geo.watchPosition(this.onChange, this.onError);
     }
+    componentDidMount() {
+        
+        this.setLocationState();
 
+        // TODO: figure out why this causes all points at GeoJsonLayer
+        // component to re-render
+        this.selfLocationInterval = setInterval(() => {
+                                this.setLocationState(); 
+                                }, 
+                                15000);
+      };
 
     render() {
         var center = [this.state.lat, this.state.lng];
+        var closePointsURL = "http://localhost:8342/api/point?longitude=" + this.state.lng + "&latitude=" + this.state.lat + "&max_distance=5000";
 
-        navigator.geolocation.getCurrentPosition(function (position) {
-
-            this.setState({
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            });
-            this.interval = setInterval(() => this.setState({time: Date.now()}), 1000);
-            console.log("Latitude is :", position.coords.latitude);
-            console.log("Longitude is :", position.coords.longitude);
-        });
 
         const basemapsDict = {
             dark: "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png",
@@ -85,7 +93,7 @@ class MapComponent extends React.Component {
                 <Basemap basemap={this.state.basemap} onChange={this.onBMChange}/>
 
 
-                <GeojsonLayer url="places2.json" cluster={true}/>
+                <GeojsonLayer url={closePointsURL} cluster={true}/>
 
 
                 };
@@ -93,8 +101,7 @@ class MapComponent extends React.Component {
 
                 <Marker position={center}>
                     <Popup>
-                        <div>צדיק כתמר יפרח</div>
-
+                        <div>Your Location - latitude: {Number(this.state.lat).toFixed(4)} - longitude: {Number(this.state.lng).toFixed(4)}</div>
                     </Popup>
                 </Marker>
             </Map>
@@ -103,7 +110,7 @@ class MapComponent extends React.Component {
 
 
     componentWillUnmount() {
-        clearInterval(this.interval);
+        clearInterval(this.selfLocationInterval);
     }
 };
 

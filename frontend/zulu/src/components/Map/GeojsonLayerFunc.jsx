@@ -5,10 +5,9 @@ import Card from '../Card/Card'
 
 var fetchData = function fetchData(url, options) {
     let request = fetch(url, options);
-
     return request
-        .then(r => r.json())
-        .then(data => data.features);
+        .then(r => r.json());
+
 }
 
 export default function GeojsonLayer({url, cluster}) {
@@ -18,7 +17,7 @@ export default function GeojsonLayer({url, cluster}) {
         if (url) {
             const abortController = new AbortController();
 
-            fetchData(url, {signal: abortController.signal}).then(data => {
+                fetchData(url, {signal: abortController.signal}).then(data => {
                 setData(data);
             });
 
@@ -32,27 +31,26 @@ export default function GeojsonLayer({url, cluster}) {
 
     var GroupComponent = cluster ? MarkerClusterGroup : FeatureGroup;
 
-    console.log(data);
     return (
         <GroupComponent>
 
             {data.map(f => (
                 <Marker
-                    key={JSON.stringify(f.properties)}
+                    key={JSON.stringify(f)}
                     position={f.geometry.coordinates.reverse()}
                 >
                     <Popup minWidth={400} closeButton={true} closeOnClick={false} autoClose={false}>
                         {/*
                 <div style={{backgroundColor:"white", color:"black"}}>
                   <b>Stories in this spot:</b>
-                  <p> {f.properties.name}</p>
+                  <p> {f.story.title}</p>
                 </div>
 */}
 
                         <Card background='#2980B9' height="400">
-                            <img src={f.properties.img_url} width="200" height="100 "></img>
-                            <h1>{f.properties.story_title}</h1>
-                            <p style={{'font-size': "16px"}}>{f.properties.story_content}
+                            {/* <img src={f.properties.img_url} width="200" height="100 "></img> */}
+                            <h1>{f.story.title}</h1>
+                            <p style={{'font-size': "16px"}}>{f.story.content}
                             </p>
 
                         </Card>
