@@ -4,10 +4,16 @@ from geojson import Point
 from pydantic import BaseModel, HttpUrl
 
 
+class UserStory(BaseModel):
+    title: str
+    content: str
+
+
 class UserLocation(BaseModel):
     user_id: str
     longitude: float
     latitude: float
+    story: UserStory
 
     def as_point(self):
         return Point((self.longitude, self.latitude))
@@ -19,7 +25,8 @@ class GeoJSONPoint(BaseModel):
 
 
 class UserLocationResponse(BaseModel):
-    location: GeoJSONPoint
+    geometry: GeoJSONPoint
+    story: UserStory
     user_id: str
 
 
