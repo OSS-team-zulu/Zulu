@@ -9,22 +9,11 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <Header/>
                 <MapWidow/>
                 <Buttons/>
+                <CornerLogo/>
             </div>
         );
-    }
-}
-
-class Header extends Component {
-    render() {
-        return(
-            <div className="App-header" >
-                <h2>Zulu App</h2>
-                <img src={logo} className="App-logo" alt="logo"  />
-            </div>
-        )
     }
 }
 
@@ -44,18 +33,18 @@ class Buttons extends Component {
             <div className="leaflet-bottom leaflet-right buttons-container" >
                  <Container>
                     <Button
-                        onClick={() => alert('POST')}
+                        onClick={() => alert('About')}
                         styles={{backgroundColor: darkColors.cyan, color: darkColors.white}}
-                        tooltip="Create note link"
+                        tooltip="About Zulu"
                         icon={FaPlus} />
                     <Button
                         onClick={() => alert('POST')}
                         styles={{backgroundColor: darkColors.cyan, color: darkColors.white}}
-                        tooltip="Add user link"
+                        tooltip="Add a story with a photo"
                         icon={FaPlus} />
                     <Button
                         styles={{backgroundColor: darkColors.cyan, color: darkColors.white}}
-                        tooltip="Add a new post!"
+                        tooltip="Add a new story!"
                         icon="react-icons/fa"
                         rotate={true}
                         onClick={() => alert('POST')} />
@@ -65,5 +54,17 @@ class Buttons extends Component {
     }
 }
 
+class CornerLogo extends Component {
+    render() {
+        return(
+            <div className="leaflet-top leaflet-left" >
+                <div className="App-header" >
+                    <h2>Zulu App</h2>
+                    <img src={logo} className="App-logo" alt="logo"  />
+                </div>
+            </div>
+        )
+    }
+}
 
 export default App;
