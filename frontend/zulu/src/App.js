@@ -66,7 +66,7 @@ class PostModal extends Component {
     render() {
         return(
             <div>
-              <Modal show={true} onHide={null} centered>
+              <Modal show={false} onHide={null} centered>
                 <Modal.Header closeButton>
                   <Modal.Title>Post a story</Modal.Title>
                 </Modal.Header>
