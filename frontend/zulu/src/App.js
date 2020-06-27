@@ -35,7 +35,6 @@ class App extends Component {
             <BrowserRouter>
                 <div>
                     <CornerLogo/>
-                    <Link to='map'>map</Link><br/>
                     <Switch>
                         <ProtectedRoute exact path='/map' user={""} handleLogout={""} component={MapComponent} />
                         <Route path="/">
@@ -77,7 +76,9 @@ const ProtectedRoute = ({ component: Component, user, ...rest }) => {
     return (
         <Route {...rest} render={
             props => {
-                if (false) {
+
+                /*Add authentication test here*/
+                if (true) {
                     return <Component {...rest} {...props} />
                 } else {
                     return <Redirect to={

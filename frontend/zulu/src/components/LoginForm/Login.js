@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import "./Login.css";
+import { useHistory } from 'react-router'
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const history=useHistory();
   function validateForm() {
     return email.length > 0 && password.length > 0;
   }
   function handleSubmit(event) {
     event.preventDefault();
     console.log(email,password)
+    history.push("/map");
+
   }
 
   return (
