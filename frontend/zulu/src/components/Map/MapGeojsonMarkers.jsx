@@ -3,8 +3,10 @@ import L from 'leaflet';
 import {Map, TileLayer, Marker, Popup} from "react-leaflet";
 import Basemap from './Basemaps';
 import GeojsonLayer from './GeojsonLayerFunc';
+import GeoWikipediaLayer from './GeoWikipediaLayerFunc';
 import './Map.css';
 import {usePosition} from '../Position_getter/use_position'
+import { MyLocationIcon } from "../../Icons/Icon.MyLocation";
 
 L.Icon.Default.imagePath = "https://unpkg.com/leaflet@1.5.0/dist/images/";
 
@@ -76,7 +78,6 @@ class MapComponent extends React.Component {
         var center = [this.state.lat, this.state.lng];
         var closePointsURL = "http://localhost:8342/api/point?longitude=" + this.state.lng + "&latitude=" + this.state.lat + "&max_distance=5000";
 
-
         const basemapsDict = {
             dark: "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png",
             osm: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -95,11 +96,11 @@ class MapComponent extends React.Component {
 
                 <GeojsonLayer url={closePointsURL} cluster={true}/>
 
+                <GeoWikipediaLayer lat={center[0]} lng={center[1]} maxDist={5000} cluster={true}/>
+                
 
-                };
 
-
-                <Marker position={center}>
+                <Marker position={center} icon={MyLocationIcon}>
                     <Popup>
                         <div>Your Location - latitude: {Number(this.state.lat).toFixed(4)} - longitude: {Number(this.state.lng).toFixed(4)}</div>
                     </Popup>
