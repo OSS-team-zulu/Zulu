@@ -8,7 +8,7 @@ import {
     BrowserRouter ,
     Switch,
     Route,
-    Link
+    Link,Redirect
 } from "react-router-dom";
 
 
@@ -34,15 +34,12 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div>
-                    <CornerLogo></CornerLogo>
-
+                    <CornerLogo/>
+                    <Link to='map'>map</Link><br/>
                     <Switch>
-                        <Route path="/map">
-                            <MapComponent></MapComponent>
-                        </Route>
-
+                        <ProtectedRoute exact path='/map' user={""} handleLogout={""} component={MapComponent} />
                         <Route path="/">
-                              <Login></Login>
+                              <Login/>
                         </Route>
                     </Switch>
                 </div>
@@ -73,6 +70,28 @@ class CornerLogo extends Component {
             </div>
         )
     }
+}
+
+
+const ProtectedRoute = ({ component: Component, user, ...rest }) => {
+    return (
+        <Route {...rest} render={
+            props => {
+                if (false) {
+                    return <Component {...rest} {...props} />
+                } else {
+                    return <Redirect to={
+                        {
+                            pathname: '/',
+                            state: {
+                                from: props.location
+                            }
+                        }
+                    } />
+                }
+            }
+        } />
+    )
 }
 
 export default App;
