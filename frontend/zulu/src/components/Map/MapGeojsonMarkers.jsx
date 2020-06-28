@@ -1,10 +1,13 @@
-import React from "react";
+import React, {Component} from "react";
 import L from 'leaflet';
-import {Map, TileLayer, Marker, Popup} from "react-leaflet";
+import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import Basemap from './Basemaps';
 import GeojsonLayer from './GeojsonLayerFunc';
 import './Map.css';
-import {usePosition} from '../Position_getter/use_position'
+import {Button as OButton, Modal} from "react-bootstrap";
+import {Button, Container, darkColors} from "react-floating-action-button";
+import {FaPlus} from "react-icons/fa";
+import Card from "../Card/Card";
 
 L.Icon.Default.imagePath = "https://unpkg.com/leaflet@1.5.0/dist/images/";
 
@@ -19,7 +22,7 @@ class MapComponent extends React.Component {
             basemap: 'dark',
             time: Date.now(),
             geojsonvisible: false,
-
+            showModal:false
         };
 
     }
@@ -71,7 +74,9 @@ class MapComponent extends React.Component {
                                 }, 
                                 15000);
       };
-
+     showModal = () => {
+        this.setState({showModal: true})
+    };
     render() {
         var center = [this.state.lat, this.state.lng];
         var closePointsURL = "http://localhost:8342/api/point?longitude=" + this.state.lng + "&latitude=" + this.state.lat + "&max_distance=5000";
@@ -85,7 +90,39 @@ class MapComponent extends React.Component {
         }
 
         return (
+            <div>
             <Map zoom={this.state.zoom} center={center}>
+                <div className="leaflet-bottom leaflet-right buttons-container">
+                    <Container>
+                        <Button
+                            onClick={() => alert('About')}
+                            styles={{backgroundColor: darkColors.cyan, color: darkColors.white}}
+                            tooltip="About Zulu"
+                            icon={FaPlus}/>
+                        <Button
+                            onClick={() => alert('POST')}
+                            styles={{backgroundColor: darkColors.cyan, color: darkColors.white}}
+                            tooltip="Add a story with a photo"
+                            icon={FaPlus}/>
+                        <Button
+                            styles={{backgroundColor: darkColors.cyan, color: darkColors.white}}
+                            tooltip="Add a new story!"
+                            icon="react-icons/fa"
+                            rotate={true}
+                            onClick={this.showModal}/>
+                    </Container>
+                </div>
+                {this.state.showModal&&  <Popup position={[this.state.lat,this.state.lng]}>
+                        <div>
+                            <form id="popup-form">
+                            <label for="input-post">Post:</label>
+                            <input id="input-post" class="popup-input" type="text" />
+                            </form>
+                        </div>
+
+                </Popup>
+                        }
+
                 <TileLayer
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url={basemapsDict[this.state.basemap]}
@@ -105,6 +142,7 @@ class MapComponent extends React.Component {
                     </Popup>
                 </Marker>
             </Map>
+            </div>
         );
     }
 
@@ -112,6 +150,6 @@ class MapComponent extends React.Component {
     componentWillUnmount() {
         clearInterval(this.selfLocationInterval);
     }
-};
+}
 
 export default MapComponent;
