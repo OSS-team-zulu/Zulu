@@ -2,6 +2,7 @@ import React, {Component, useState} from 'react';
 import logo from './geo_icon.png';
 import './App.css';
 import MapComponent from "./components/Map/MapGeojsonMarkers.jsx";
+import { Fab } from "material-ui"
 import { Container, Button, Link, darkColors} from 'react-floating-action-button'
 import { Modal, Button as OButton} from 'react-bootstrap'
 import { FaPlus} from 'react-icons/fa';
@@ -43,16 +44,16 @@ class Buttons extends Component {
                         onClick={() => alert('About')}
                         styles={{backgroundColor: darkColors.cyan, color: darkColors.white}}
                         tooltip="About Zulu"
-                        icon={FaPlus} />
+                        icon={<FaPlus/>} />
                     <Button
                         onClick={() => alert('POST')}
                         styles={{backgroundColor: darkColors.cyan, color: darkColors.white}}
                         tooltip="Add a story with a photo"
-                        icon={FaPlus} />
-                    <Button
+                        icon={<FaPlus/>} />
+                    <Fab
                         styles={{backgroundColor: darkColors.cyan, color: darkColors.white}}
                         tooltip="Add a new story!"
-                        icon="react-icons/fa"
+                        icon="fa fa-plus"
                         rotate={true}
                         onClick={this.showModal} />
                 </Container>
@@ -65,8 +66,8 @@ class PostModal extends Component {
 
     render() {
         return(
-            <div>
-              <Modal show={false} onHide={null} centered>
+            <div className="leaflet-bottom leaflet-left buttons-container" >
+              <Modal show={false} onHide={null} >
                 <Modal.Header closeButton>
                   <Modal.Title>Post a story</Modal.Title>
                 </Modal.Header>
@@ -94,6 +95,7 @@ class CornerLogo extends Component {
             <div className="leaflet-top leaflet-left" >
                 <div className="App-header" >
                     <h2>Zulu App</h2>
+                    <FaPlus/>
                     <img src={logo} className="App-logo" alt="logo"  />
                 </div>
             </div>
