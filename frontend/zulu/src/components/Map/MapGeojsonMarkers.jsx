@@ -22,9 +22,13 @@ class MapComponent extends React.Component {
             basemap: 'dark',
             time: Date.now(),
             geojsonvisible: false,
-            showModal:false
+            showModal:false,
+            storyTitle: "",
+            storyBody: "",
         };
 
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     onBMChange = (bm) => {
@@ -63,6 +67,22 @@ class MapComponent extends React.Component {
           );
 
     }
+
+    handleChange(event) {
+    var target = event.target;
+    var value = target.value;
+    var name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+    }
+
+    handleSubmit(event) {
+        var submitURL = "http://localhost:8342/api/point?longitude=" + this.state.lng + "&latitude=" + this.state.lat + "&max_distance=5000";
+        alert('A story was submitted:\ntitle:\n' + this.state.storyTitle +'\nbody\n'+ this.state.storyBody +'\n\nlat: '+ this.state.lat +'\nlong:'+ this.state.lng);
+        event.preventDefault();
+    }
     componentDidMount() {
         
         this.setLocationState();
@@ -100,11 +120,6 @@ class MapComponent extends React.Component {
                             tooltip="About Zulu"
                             icon={FaPlus}/>
                         <Button
-                            onClick={() => alert('POST')}
-                            styles={{backgroundColor: darkColors.cyan, color: darkColors.white}}
-                            tooltip="Add a story with a photo"
-                            icon={FaPlus}/>
-                        <Button
                             styles={{backgroundColor: darkColors.cyan, color: darkColors.white}}
                             tooltip="Add a new story!"
                             icon="react-icons/fa"
@@ -112,14 +127,22 @@ class MapComponent extends React.Component {
                             onClick={this.showModal}/>
                     </Container>
                 </div>
-                {this.state.showModal&&  <Popup position={[this.state.lat,this.state.lng]}>
-                        <div>
-                            <form id="popup-form">
-                            <label for="input-post">Post:</label>
-                            <input id="input-post" class="popup-input" type="text" />
-                            </form>
-                        </div>
-
+                {this.state.showModal&&
+                <Popup position={[this.state.lat,this.state.lng]}>
+                    <form onSubmit={this.handleSubmit}>
+                        <label>
+                          Title:
+                            <br/>
+                          <input name="storyTitle" type="text" defaultValue={this.state.storyTitle} onChange={this.handleChange} />
+                          <br/>
+                        </label>
+                        <label>
+                          Body:<br/>
+                          <textarea name="storyBody" defaultValue={this.state.storyBody} onChange={this.handleChange} />
+                        </label>
+                        <br/>
+                        <input type="submit" value="Submit" />
+                    </form>
                 </Popup>
                         }
 
