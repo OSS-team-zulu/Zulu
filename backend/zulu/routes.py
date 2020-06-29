@@ -33,25 +33,15 @@ def get_points(db=Depends(points_db),
 
 @api.post("/point", status_code=status.HTTP_201_CREATED)
 def create_point(location: UserLocation, db=Depends(points_db)):
-    if location.story.image_id is not None:
-        db.insert({
-            "geometry": location.as_point(),
-            "story": {
-                'title': location.story.title,
-                'content': location.story.content,
-                'image_id': location.story.image_id,
-            },
-            "user_id": location.user_id
-        })
-    else:
-        db.insert({
-            "geometry": location.as_point(),
-            "story": {
-                'title': location.story.title,
-                'content': location.story.content,
-            },
-            "user_id": location.user_id
-        })
+    db.insert({
+        "geometry": location.as_point(),
+        "story": {
+            'title': location.story.title,
+            'content': location.story.content,
+            'image_id': location.story.image_id,
+        },
+        "user_id": location.user_id
+    })
     return {}
 
 
