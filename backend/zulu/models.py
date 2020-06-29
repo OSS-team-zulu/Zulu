@@ -7,6 +7,7 @@ from pydantic import BaseModel, HttpUrl
 class UserStory(BaseModel):
     title: str
     content: str
+    image_id: str = None
 
 
 class UserLocation(BaseModel):
