@@ -1,9 +1,13 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, status, File, UploadFile, HTTPException
+from starlette.responses import StreamingResponse
 from geojson import Point
+from bson.objectid import ObjectId
+from bson.errors import InvalidId
+import io
 
-from zulu.db_tools import points_db
+from zulu.db_tools import points_db, images_db
 from zulu.models import Contributors, UserLocation, UserLocationResponse
 
 api = APIRouter()
@@ -38,6 +42,25 @@ def create_point(location: UserLocation, db=Depends(points_db)):
         "user_id": location.user_id
     })
     return {}
+
+
+@api.get("/image")
+def get_image(id: str, db=Depends(images_db)):
+    try:
+        record = db.find_one({'_id': ObjectId(id)})
+    except InvalidId:
+        raise HTTPException(status_code=404, detail="Image not found. Id is not valid")
+    if not record:
+        raise HTTPException(status_code=404, detail="Image not found")
+    return StreamingResponse(io.BytesIO(record['image']), media_type=record['content_type'])
+
+
+@api.post("/image", status_code=status.HTTP_201_CREATED)
+def add_image(image: UploadFile = File(...), db=Depends(images_db)):
+    image_id = db.insert({'image': image.file.read(),
+                          'content_type': image.content_type,
+                          'filename': image.filename})
+    return {'id': str(image_id), 'filename': image.filename}
 
 
 @api.get("/contributors", response_model=List[Contributors])
