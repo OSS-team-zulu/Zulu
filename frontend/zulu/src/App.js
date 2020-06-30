@@ -19,7 +19,7 @@ class MapWidow extends Component {
     render() {
         return(
             <div className="">
-                <MapComponent/>
+                {/*<MapComponent/>*/}
             </div>
         )
     }

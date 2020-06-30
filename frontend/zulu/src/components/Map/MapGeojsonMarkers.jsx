@@ -106,7 +106,7 @@ class MapComponent extends React.Component {
               </Fab>
             </Container>
           </div>
-          {this.showPostForm && <PostForm/>}
+          {this.showPostForm && <PostForm lat={this.state.lat} lng={this.state.lng}/>}
 
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -142,7 +142,8 @@ class PostForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = props.state;
+    this.lat = props.lat;
+    this.lng = props.lng;
 
     this.story = {
       storyTitle: "",
@@ -166,7 +167,7 @@ class PostForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    var submitURL = "http://localhost:8342/api/point?longitude=" + this.state.lng + "&latitude=" + this.state.lat + "&max_distance=5000";
+    var submitURL = "http://localhost:8342/api/point?longitude=" + this.lng + "&latitude=" + this.lat + "&max_distance=5000";
     var fileName = this.fileInput?.current?.files[0]?.name;
     var hasFile = (typeof fileName !== 'undefined');
 
@@ -174,6 +175,7 @@ class PostForm extends React.Component {
     if (hasFile) {
       alert(`Selected file - ${fileName}`);
     }
+    // todo - put post here
   }
 
   componentWillUnmount() {
@@ -181,7 +183,7 @@ class PostForm extends React.Component {
 
   render() {
     return (
-      <Popup position={[this.state.lat, this.state.lng]}>
+      <Popup position={[this.lat, this.lng]}>
         <form onSubmit={this.handleSubmit}>
           <h3> Add your Story. </h3>
           <label>
