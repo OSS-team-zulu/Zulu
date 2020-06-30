@@ -10,10 +10,21 @@
 .App-header {
   display: flex;
   margin: auto;
-  background-color: #222;
   height: fit-content;
   padding: 4px;
   color: white;
+}
+
+.buttons-container {
+  position: absolute;
+  z-index: 2;
+  pointer-events: auto !important;
+}
+
+.map-window {
+  height: 100vh;
+  width: 100vw;
+  z-index: 1;
 }
 
 .App-intro {
