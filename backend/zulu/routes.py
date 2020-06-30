@@ -8,7 +8,7 @@ from bson.errors import InvalidId
 import io
 
 from zulu.db_tools import points_db, images_db
-from zulu.models import Contributors, UserLocation, UserLocationResponse
+from zulu.models import Contributors, UserLocation, UserLocationResponse, ImageId
 
 api = APIRouter()
 
@@ -46,9 +46,9 @@ def create_point(location: UserLocation, db=Depends(points_db)):
 
 
 @api.get("/image")
-def get_image(id: str, db=Depends(images_db)):
+def get_image(image_id: ImageId, db=Depends(images_db)):
     try:
-        record = db.find_one({'_id': ObjectId(id)})
+        record = db.find_one({'_id': ObjectId(image_id.id)})
     except InvalidId:
         raise HTTPException(status_code=404, detail="Image not found. Id is not valid")
     if not record:

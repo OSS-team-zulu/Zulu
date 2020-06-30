@@ -31,6 +31,10 @@ class UserLocationResponse(BaseModel):
     user_id: str
 
 
+class ImageId(BaseModel):
+    id: str
+
+
 class Contributors(BaseModel):
     name: str
     github_profile: HttpUrl
