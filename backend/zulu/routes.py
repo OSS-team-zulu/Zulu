@@ -8,7 +8,7 @@ from bson.errors import InvalidId
 import io
 
 from zulu.db_tools import points_db, images_db
-from zulu.models import Contributors, UserLocation, UserLocationResponse, ImageId
+from zulu.models import Contributors, UserLocation, UserLocationResponse, ImageId, ImagePostResponse
 
 api = APIRouter()
 
@@ -56,7 +56,7 @@ def get_image(image_id: ImageId, db=Depends(images_db)):
     return StreamingResponse(io.BytesIO(record['image']), media_type=record['content_type'])
 
 
-@api.post("/image", status_code=status.HTTP_201_CREATED)
+@api.post("/image", status_code=status.HTTP_201_CREATED, response_model=ImagePostResponse)
 def add_image(image: UploadFile = File(...), db=Depends(images_db)):
     image_id = db.insert({'image': image.file.read(),
                           'content_type': image.content_type,

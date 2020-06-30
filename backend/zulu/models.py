@@ -35,6 +35,11 @@ class ImageId(BaseModel):
     id: str
 
 
+class ImagePostResponse(BaseModel):
+    id: str
+    filename: str
+
+
 class Contributors(BaseModel):
     name: str
     github_profile: HttpUrl
