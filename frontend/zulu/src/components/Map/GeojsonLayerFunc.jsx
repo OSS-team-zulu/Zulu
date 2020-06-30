@@ -4,7 +4,7 @@ import MarkerClusterGroup from "react-leaflet-markercluster";
 import Card from '../Card/Card'
 
 var fetchData = function fetchData(lat, lng, maxDist, options) {
-    var closePointsURL = "http://localhost:8342/api/point?longitude=" + lng + "&latitude=" + lat + "&max_distance=" + maxDist;
+    var closePointsURL = "http://localhost:8342/api/story/point?longitude=" + lng + "&latitude=" + lat + "&max_distance=" + maxDist;
     let request = fetch(closePointsURL, options);
     return request
         .then(r => r.json());
@@ -12,7 +12,7 @@ var fetchData = function fetchData(lat, lng, maxDist, options) {
 
 
 function parseImagePath(imageId) {
-    return "http://localhost:8342/api/image?id=" + imageId;
+    return "http://localhost:8342/api/story/image?id=" + imageId;
 }
 
 
