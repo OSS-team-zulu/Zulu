@@ -3,3 +3,4 @@ uvicorn
 dynaconf
 pymongo
 geojson
+python-multipart

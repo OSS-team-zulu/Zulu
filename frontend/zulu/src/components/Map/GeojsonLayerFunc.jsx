@@ -3,21 +3,27 @@ import {Marker, FeatureGroup, Popup} from 'react-leaflet';
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import Card from '../Card/Card'
 
-var fetchData = function fetchData(url, options) {
-    let request = fetch(url, options);
+var fetchData = function fetchData(lat, lng, maxDist, options) {
+    var closePointsURL = "http://localhost:8342/api/point?longitude=" + lng + "&latitude=" + lat + "&max_distance=" + maxDist;
+    let request = fetch(closePointsURL, options);
     return request
         .then(r => r.json());
-
 }
 
-export default function GeojsonLayer({url, cluster}) {
+
+function parseImagePath(imageId) {
+    return "http://localhost:8342/api/image?id=" + imageId;
+}
+
+
+export default function GeojsonLayer({lat, lng, maxDist, cluster}) {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        if (url) {
+        if (lat && lng && maxDist) {
             const abortController = new AbortController();
 
-                fetchData(url, {signal: abortController.signal}).then(data => {
+                fetchData(lat, lng, maxDist, {signal: abortController.signal}).then(data => {
                 setData(data);
             });
 
@@ -27,7 +33,7 @@ export default function GeojsonLayer({url, cluster}) {
             };
         }
 
-    }, [url]);
+    }, [lat, lng, maxDist]);
 
     var GroupComponent = cluster ? MarkerClusterGroup : FeatureGroup;
 
@@ -40,16 +46,14 @@ export default function GeojsonLayer({url, cluster}) {
                     position={f.geometry.coordinates.reverse()}
                 >
                     <Popup minWidth={400} closeButton={true} closeOnClick={false} autoClose={false}>
-                        {/*
-                <div style={{backgroundColor:"white", color:"black"}}>
-                  <b>Stories in this spot:</b>
-                  <p> {f.story.title}</p>
-                </div>
-*/}
 
                         <Card background='#2980B9' height="400">
-                            {/* <img src={f.properties.img_url} width="200" height="100 "></img> */}
                             <h1>{f.story.title}</h1>
+                            { f.story.hasOwnProperty('image_id') && f.story.image_id != null ?
+                                <img src={parseImagePath(f.story.image_id)} style={{maxHeight: "430px", maxWidth: "430px"}}></img>
+                                :
+                                <p></p>
+                            }
                             <p style={{'font-size': "16px"}}>{f.story.content}
                             </p>
 
