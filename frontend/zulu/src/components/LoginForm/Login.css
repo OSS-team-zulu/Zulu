@@ -1,0 +1,26 @@
+@media all and (min-width: 30px) {
+    .Login {
+        padding: 40px ;
+
+    }
+
+    .Login form {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px ;
+        display: inline-block;
+        border: 10px solid #ccc;
+        box-sizing: border-box;
+    }
+    .btn{
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        cursor: pointer;
+        width: 20%;
+    }
+    .label{
+        font-family:  serif;
+    }
+}
