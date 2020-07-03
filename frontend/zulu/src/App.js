@@ -4,15 +4,35 @@ import './App.css';
 import MapComponent from "./components/Map/MapGeojsonMarkers.jsx";
 import {Buttons, PostModal} from "./components/Map/MapGeojsonMarkers";
 
+import {
+    BrowserRouter ,
+    Switch,
+    Route,
+    Link,Redirect
+} from "react-router-dom";
+
+
+import Login from "./components/LoginForm/Login"
 class App extends Component {
+    state = {
+        loggedIn: false,
+    };
     render() {
         return (
-            <div className="App">
-                <MapWidow/>
-                <CornerLogo/>
-            </div>
+            <BrowserRouter>
+                <div>
+                    <CornerLogo/>
+                    <Switch>
+                        <ProtectedRoute exact path='/map' user={""} handleLogout={""} component={MapComponent} />
+                        <Route path="/">
+                            <Login/>
+                        </Route>
+                    </Switch>
+                </div>
+            </BrowserRouter>
         );
     }
+
 }
 
 class MapWidow extends Component {
@@ -35,6 +55,30 @@ class CornerLogo extends Component {
             </div>
         )
     }
+}
+
+
+const ProtectedRoute = ({ component: Component, user, ...rest }) => {
+    return (
+        <Route {...rest} render={
+            props => {
+
+                /*Add authentication test here*/
+                if (true) {
+                    return <Component {...rest} {...props} />
+                } else {
+                    return <Redirect to={
+                        {
+                            pathname: '/',
+                            state: {
+                                from: props.location
+                            }
+                        }
+                    } />
+                }
+            }
+        } />
+    )
 }
 
 export default App;

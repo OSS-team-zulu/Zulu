@@ -7,6 +7,7 @@ from pydantic import BaseModel, HttpUrl
 class UserStory(BaseModel):
     title: str
     content: str
+    image_id: str = None
 
 
 class UserLocation(BaseModel):
@@ -28,6 +29,15 @@ class UserLocationResponse(BaseModel):
     geometry: GeoJSONPoint
     story: UserStory
     user_id: str
+
+
+class ImageId(BaseModel):
+    id: str
+
+
+class ImagePostResponse(BaseModel):
+    id: str
+    filename: str
 
 
 class Contributors(BaseModel):
