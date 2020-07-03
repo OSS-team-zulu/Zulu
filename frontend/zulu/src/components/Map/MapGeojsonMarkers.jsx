@@ -71,20 +71,29 @@ class MapComponent extends Component {
     }
 
     handleChange(event) {
-    var target = event.target;
-    var value = target.value;
-    var name = target.name;
+      var target = event.target;
+      var value = target.value;
+      var name = target.name;
 
-    this.setState({
-      [name]: value
-    });
+      this.setState({
+        [name]: value
+      });
     }
 
     handleSubmit(event) {
-        var submitURL = "http://localhost:8342/api/point?longitude=" + this.state.lng + "&latitude=" + this.state.lat + "&max_distance=5000";
-        alert('A story was submitted:\ntitle:\n' + this.state.storyTitle +'\nbody\n'+ this.state.storyBody +'\n\nlat: '+ this.state.lat +'\nlong:'+ this.state.lng);
-        event.preventDefault();
+      event.preventDefault();
+      var fileName = this.fileInput?.current?.files[0]?.name;
+      var hasFile = (typeof fileName !== 'undefined');
+
+      var submitURL = "http://localhost:8342/api/point?longitude=" + this.state.lng + "&latitude=" + this.state.lat + "&max_distance=5000";
+
+      alert('A story was submitted:\ntitle:\n' + this.state.storyTitle +'\nbody\n'+ this.state.storyBody +'\n\nlat: '+ this.state.lat +'\nlong:'+ this.state.lng);
+      if (hasFile) {
+        alert(`Selected file - ${fileName}`);
+      }
+      // todo - put post here
     }
+
     componentDidMount() {
         
         this.setLocationState();
