@@ -2,13 +2,12 @@ import React, {Component} from 'react';
 import logo from './geo_icon.png';
 import './App.css';
 import MapComponent from "./components/Map/MapGeojsonMarkers.jsx";
-import {Buttons, PostModal} from "./components/Map/MapGeojsonMarkers";
 
 import {
     BrowserRouter ,
     Switch,
     Route,
-    Link,Redirect
+    Redirect
 } from "react-router-dom";
 
 
@@ -35,15 +34,6 @@ class App extends Component {
 
 }
 
-class MapWidow extends Component {
-    render() {
-        return(
-            <div className="">
-                <MapComponent/>
-            </div>
-        )
-    }
-}
 class CornerLogo extends Component {
     render() {
         return(
@@ -79,6 +69,6 @@ const ProtectedRoute = ({ component: Component, user, ...rest }) => {
             }
         } />
     )
-}
+};
 
 export default App;

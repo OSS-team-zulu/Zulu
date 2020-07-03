@@ -5,12 +5,9 @@ import Basemap from './Basemaps';
 import GeojsonLayer from './GeojsonLayerFunc';
 import GeoWikipediaLayer from './GeoWikipediaLayerFunc';
 import './Map.css';
-import {Button as OButton, Modal} from "react-bootstrap";
-import {Button, Container, darkColors} from "react-floating-action-button";
+import {Container} from "react-floating-action-button";
 import {Fab} from '@material-ui/core';
 import {FaPlus} from "react-icons/fa";
-import Card from "../Card/Card";
-import {usePosition} from '../Position_getter/use_position'
 import { MyLocationIcon } from "../../Icons/Icon.MyLocation";
 
 
@@ -48,7 +45,7 @@ class MapComponent extends Component {
         this.setState({
             geojsonvisible: e.currentTarget.checked
         });
-    }
+    };
 
     onError = (error) => {
         console.log(error)
@@ -86,15 +83,38 @@ class MapComponent extends Component {
 
     handleSubmit(event) {
       event.preventDefault();
-      var fileName = this.fileInput?.current?.files[0]?.name;
-      var hasFile = (typeof fileName !== 'undefined');
+      let fileName = this.fileInput?.current?.files[0]?.name;
+      let hasFile = (typeof fileName !== 'undefined');
 
-      var submitURL = "http://localhost:8342/api/point?longitude=" + this.state.lng + "&latitude=" + this.state.lat + "&max_distance=5000";
+      let submitURL = "http://localhost:8342/api/point?longitude=" + this.state.lng + "&latitude=" + this.state.lat + "&max_distance=5000";
 
       alert('A story was submitted:\ntitle:\n' + this.state.storyTitle +'\nbody\n'+ this.state.storyBody +'\n\nlat: '+ this.state.lat +'\nlong:'+ this.state.lng);
       if (hasFile) {
         alert(`Selected file - ${fileName}`);
       }
+
+      if (hasFile) {
+
+      }
+      let post_body ={
+        "user_id": "string", //todo fix
+        "longitude": this.state.lng,
+        "latitude": this.state.lat,
+        "story": {
+          "title": this.state.storyTitle,
+          "content": this.state.storyBody,
+          "image_id": "string"
+        }
+      };
+
+      let post_request = fetch(submitURL, {
+        method: "POST",
+        body: JSON.stringify(post_body),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+
       // todo - put post here
     }
 
