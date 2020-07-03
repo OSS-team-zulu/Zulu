@@ -1,8 +1,13 @@
 import pytest
 
-from tests.fixtures import client  # noqa: F401
-from tests.fixtures import authenticated_client, some_user, user_data
+from tests.fixtures import user_data  # noqa: F401
+from tests.fixtures import authenticated_client, client, some_user
 from zulu import db_tools
+
+
+@pytest.fixture(scope='session', autouse=True)
+def setup_db():
+    db_tools.init_db()
 
 
 @pytest.fixture(autouse=True)
