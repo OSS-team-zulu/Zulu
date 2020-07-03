@@ -4,14 +4,34 @@ import logging
 import uvicorn
 from dynaconf import settings
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from zulu.db_tools import init_db
 from zulu.routes import auth, contributors, story
+
+app = FastAPI()
 
 logging.basicConfig(level=logging.INFO)
 
 LOG = logging.getLogger(__name__)
 app = FastAPI(title='Zulu app', )
+
+origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:8342",
+    "http://127.0.0.1:8342",
+    f"http://{settings.API_HOST}:{settings.API_PORT}",
+    f"https://{settings.API_HOST}:{settings.API_PORT}",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(story.api, prefix='/api/story')
 app.include_router(auth.api, prefix='/api/auth')
