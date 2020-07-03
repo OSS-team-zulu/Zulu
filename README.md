@@ -3,17 +3,25 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)             ![Backend unit tests](https://github.com/OSS-team-zulu/Zulu/workflows/Backend%20unit%20tests/badge.svg?branch=master)
 
 ### Table of contents:
-  - **About Zulu**
-     -  Basic structure
-  -   **Contributing**
-      -  Bugs & Issues
-      -  Contributing code
-      - Tracking tasks
-  -   **Team Info**
-  -   **Running Zulu**
-	  - Running the full stack with Docker
-	  - Running FE locally for development
-	  - Running BE locally for development
+- [About Zulu](#about-zulu)
+    + [Zulu - A Local exploration App](#zulu---a-local-exploration-app)
+  * [Basic Structure](#basic-structure)
+- [Contributing](#contributing)
+    + [Bugs & Issues](#bugs---issues)
+    + [Contributing code](#contributing-code)
+    + [Tracking tasks](#tracking-tasks)
+  * [Team Info](#team-info)
+- [Running Zulu](#running-zulu)
+  * [Getting Started](#getting-started)
+  * [Running the full stack with Docker:](#running-the-full-stack-with-docker-)
+  * [Running FE locally for development](#running-fe-locally-for-development)
+  * [Running BE locally for development](#running-be-locally-for-development)
+    + [Loading sample data](#loading-sample-data)
+    + [Running tests](#running-tests)
+- [Backend](#backend)
+  * [Running locally](#running-locally)
+    + [Loading sample data](#loading-sample-data-1)
+    + [Running the tests](#running-the-tests)
 
 # About Zulu
 
