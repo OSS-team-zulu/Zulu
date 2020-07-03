@@ -6,12 +6,13 @@ import GeojsonLayer from './GeojsonLayerFunc';
 import './Map.css';
 import {Button as OButton, Modal} from "react-bootstrap";
 import {Button, Container, darkColors} from "react-floating-action-button";
+import {Fab} from '@material-ui/core';
 import {FaPlus} from "react-icons/fa";
 import Card from "../Card/Card";
 
 L.Icon.Default.imagePath = "https://unpkg.com/leaflet@1.5.0/dist/images/";
 
-class MapComponent extends React.Component {
+class MapComponent extends Component {
     constructor(props) {
         super(props);
 
@@ -29,6 +30,7 @@ class MapComponent extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.fileInput = React.createRef();
     }
 
     onBMChange = (bm) => {
@@ -114,37 +116,43 @@ class MapComponent extends React.Component {
             <Map zoom={this.state.zoom} center={center}>
                 <div className="leaflet-bottom leaflet-right buttons-container">
                     <Container>
-                        <Button
-                            onClick={() => alert('About')}
-                            styles={{backgroundColor: darkColors.cyan, color: darkColors.white}}
-                            tooltip="About Zulu"
-                            icon={FaPlus}/>
-                        <Button
-                            styles={{backgroundColor: darkColors.cyan, color: darkColors.white}}
-                            tooltip="Add a new story!"
-                            icon="react-icons/fa"
-                            rotate={true}
-                            onClick={this.showModal}/>
+                      <Fab
+                        color="primary"
+                        aria-label="edit"
+                        tooltip="Add a new story!"
+                        onClick={this.showModal}>
+                        <FaPlus/>
+                      </Fab>
                     </Container>
                 </div>
                 {this.state.showModal&&
                 <Popup position={[this.state.lat,this.state.lng]}>
-                    <form onSubmit={this.handleSubmit}>
-                        <label>
-                          Title:
-                            <br/>
-                          <input name="storyTitle" type="text" defaultValue={this.state.storyTitle} onChange={this.handleChange} />
-                          <br/>
-                        </label>
-                        <label>
-                          Body:<br/>
-                          <textarea name="storyBody" defaultValue={this.state.storyBody} onChange={this.handleChange} />
-                        </label>
-                        <br/>
-                        <input type="submit" value="Submit" />
-                    </form>
-                </Popup>
-                        }
+                  <form onSubmit={this.handleSubmit}>
+                    <h3> Add your Story. </h3>
+                    <label>
+                      <br/>
+                      Title:
+                      <br/>
+                      <input name="storyTitle" type="text" defaultValue={this.state.storyTitle} onChange={this.handleChange}/>
+                      <br/>
+                    </label>
+                    <label>
+                      <br/>
+                      Body:<br/>
+                      <textarea name="storyBody" defaultValue={this.state.storyBody} onChange={this.handleChange}/>
+                      <br/>
+                    </label>
+                    <label>
+                      <br/>
+                      Add a photo: (optional) <br/>
+                      <input type="file" ref={this.fileInput}/>
+                      <br/>
+                    </label>
+                    <br/>
+                    <br/>
+                    <input type="submit" value="Submit"/>
+                  </form>
+                </Popup>}
 
                 <TileLayer
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
