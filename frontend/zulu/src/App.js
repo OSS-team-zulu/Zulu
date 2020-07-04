@@ -1,85 +1,104 @@
-import React, {Component} from 'react';
-import logo from './geo_icon.png';
-import './App.css';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+
+import AuthService from "./services/auth.service";
+
 import MapComponent from "./components/Map/MapGeojsonMarkers.jsx";
-import {Buttons, PostModal} from "./components/Map/MapGeojsonMarkers";
-
-import {
-    BrowserRouter ,
-    Switch,
-    Route,
-    Link,Redirect
-} from "react-router-dom";
+import Register from "./components/Login/register.component";
+import LoginWithRouter from "./components/Login/login.component";
+import Profile from "./components/Login/profile.component";
 
 
-import Login from "./components/LoginForm/Login"
 class App extends Component {
-    state = {
-        loggedIn: false,
+  constructor(props) {
+    super(props);
+    this.logOut = this.logOut.bind(this);
+
+    this.state = {
+      currentUser: undefined
     };
-    render() {
-        return (
-            <BrowserRouter>
-                <div>
-                    <CornerLogo/>
-                    <Switch>
-                        <ProtectedRoute exact path='/map' user={""} handleLogout={""} component={MapComponent} />
-                        <Route path="/">
-                            <Login/>
-                        </Route>
-                    </Switch>
-                </div>
-            </BrowserRouter>
-        );
+  }
+
+  componentDidMount() {
+    const user = AuthService.getCurrentUser();
+
+    if (user) {
+      this.setState({
+        currentUser: user,
+      });
     }
+  }
 
-}
+  logOut() {
+    AuthService.logout();
+  }
 
+  render() {
+    const { currentUser} = this.state;
 
-class MapWidow extends Component {
-    render() {
-        return(
-            <div className="">
-                <MapComponent/>
-            </div>
-        )
-    }
-}
-class CornerLogo extends Component {
-    render() {
-        return(
-            <div className="leaflet-top  leaflet-left">
-                <div className="App-header" >
-                    <h2>Zulu App</h2>
-                    <img src={logo} className="App-logo" alt="logo"  />
-                </div>
-            </div>
-        )
-    }
-}
-
-
-const ProtectedRoute = ({ component: Component, user, ...rest }) => {
     return (
-        <Route {...rest} render={
-            props => {
+      <Router>
+        <div class="container-fluid">
+            <div>
+                <nav className="navbar navbar-expand navbar-light bg-primary">
+                    <Link to={"/"} className="navbar-brand">
+                    Zulu App
+                    </Link>
+                    <div className="navbar-nav mr-auto">
+                    <li className="nav-item">
+                        <Link to={"/map"} className="nav-link">
+                        Map
+                        </Link>
+                    </li>
 
-                /*Add authentication test here*/
-                if (true) {
-                    return <Component {...rest} {...props} />
-                } else {
-                    return <Redirect to={
-                        {
-                            pathname: '/',
-                            state: {
-                                from: props.location
-                            }
-                        }
-                    } />
-                }
-            }
-        } />
-    )
+                    </div>
+
+                    {currentUser ? (
+                    <div className="navbar-nav ml-auto">
+                        <li className="nav-item">
+                        <Link to={"/profile"} className="nav-link">
+                            {currentUser.username}
+                        </Link>
+                        </li>
+                        <li className="nav-item">
+                        <a href="/login" className="nav-link" onClick={this.logOut}>
+                            Logout
+                        </a>
+                        </li>
+                    </div>
+                    ) : (
+                    <div className="navbar-nav ml-auto">
+                        <li className="nav-item">
+                        <Link to={"/login"} className="nav-link">
+                            Login
+                        </Link>
+                        </li>
+
+                        <li className="nav-item">
+                        <Link to={"/register"} className="nav-link">
+                            Sign Up
+                        </Link>
+                        </li>
+                    </div>
+                    )}
+                </nav>
+
+          <div className="container-fluid mt-3">
+            <Switch>
+              <Route exact path={["/", "/map"]} component={MapComponent} />
+              <Route exact path="/login" component={LoginWithRouter} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/profile" component={Profile} />
+            </Switch>
+          </div>
+        </div>
+
+        </div>
+      </Router>
+    );
+  }
 }
 
 export default App;
