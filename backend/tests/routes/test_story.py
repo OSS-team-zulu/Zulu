@@ -192,7 +192,7 @@ def test_post_image(authenticated_client):
     assert response_json['filename'] == image_name
 
     response = authenticated_client.get('/api/story/image',
-                                        json={'id': response_json['id']})
+                                        params={'id': response_json['id']})
     response.raise_for_status()
     assert response.content == open(image_path, 'rb').read()
 
