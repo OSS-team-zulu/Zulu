@@ -3,3 +3,7 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+.leaflet-popup-tip {
+  width: 0px;
+  height: 0px;
+}
