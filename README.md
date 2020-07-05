@@ -77,7 +77,7 @@ Afterwards:
 	git clone https://github.com/OSS-team-zulu/Zulu.git
 	cd Zulu
 	```
-**Note**: In Windows 10 (version 2004 and up), you can use [Docker Desktop](https://docs.docker.com/docker-for-windows/install/) instead. Make sure it is running before you start developing.
+**Note**: In Windows 10 (version 2004 and above), you can use [Docker Desktop](https://docs.docker.com/docker-for-windows/install/) instead. Make sure it is running before you start developing.
 
 ## Running the full stack with Docker:
 Bring up the services using `docker-compose`:
