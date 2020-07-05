@@ -4,8 +4,8 @@
 body,
 #root,
 .leaflet-container {
-    height: 100vh;
-    width: 100vw;
+    position: relative;
+    height: 90vh;
 }
 
 .zoom-slider {

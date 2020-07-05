@@ -1,4 +1,4 @@
-import React, {render, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Marker, FeatureGroup, Popup} from 'react-leaflet';
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import Card from '../Card/Card'

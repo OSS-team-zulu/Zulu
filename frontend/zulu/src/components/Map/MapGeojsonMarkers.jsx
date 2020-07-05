@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import L from 'leaflet';
-import {Map, Marker, Popup, TileLayer} from "react-leaflet";
+import {Map, TileLayer, Marker, Popup} from "react-leaflet";
 import Basemap from './Basemaps';
 import GeojsonLayer from './GeojsonLayerFunc';
 import GeoWikipediaLayer from './GeoWikipediaLayerFunc';
@@ -9,7 +9,6 @@ import {Container} from "react-floating-action-button";
 import {Fab} from '@material-ui/core';
 import {FaPlus} from "react-icons/fa";
 import { MyLocationIcon } from "../../Icons/Icon.MyLocation";
-
 
 L.Icon.Default.imagePath = "https://unpkg.com/leaflet@1.5.0/dist/images/";
 

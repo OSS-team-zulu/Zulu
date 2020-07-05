@@ -1,6 +1,9 @@
+pydantic[email]
 fastapi
 uvicorn
 dynaconf
 pymongo
 geojson
+pyjwt
+passlib[bcrypt]
 python-multipart
