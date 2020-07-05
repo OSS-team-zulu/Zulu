@@ -1,37 +1,37 @@
-.App {
-  text-align: center;
+.container-fluid.mt-3 {
+  height: 100%;
+  width: 100%
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+label {
+  display: block;
+  margin-top: 10px;
 }
 
-.App-header {
-  display: flex;
-  margin: auto;
-  height: fit-content;
-  padding: 4px;
-  color: white;
+.card-container.card {
+  max-width: 350px !important;
+  padding: 40px 40px;
 }
 
-.buttons-container {
-  position: absolute;
-  z-index: 2;
-  pointer-events: auto !important;
+.card {
+  background-color: #f7f7f7;
+  padding: 20px 25px 30px;
+  margin: 0 auto 25px;
+  margin-top: 50px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-.map-window {
-  height: 100vh;
-  width: 100vw;
-  z-index: 1;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.profile-img-card {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 10px;
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
 }

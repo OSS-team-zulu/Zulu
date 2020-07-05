@@ -5,7 +5,6 @@ import Basemap from './Basemaps';
 import GeojsonLayer from './GeojsonLayerFunc';
 import GeoWikipediaLayer from './GeoWikipediaLayerFunc';
 import './Map.css';
-import {usePosition} from '../Position_getter/use_position'
 import { MyLocationIcon } from "../../Icons/Icon.MyLocation";
 
 L.Icon.Default.imagePath = "https://unpkg.com/leaflet@1.5.0/dist/images/";

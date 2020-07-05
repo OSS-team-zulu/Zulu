@@ -10,14 +10,17 @@ class UserStory(BaseModel):
     image_id: str = None
 
 
-class UserLocation(BaseModel):
-    user_id: str
+class UserLocationRequest(BaseModel):
     longitude: float
     latitude: float
     story: UserStory
 
     def as_point(self):
         return Point((self.longitude, self.latitude))
+
+
+class UserLocation(UserLocationRequest):
+    user_id: str
 
 
 class GeoJSONPoint(BaseModel):
@@ -43,3 +46,25 @@ class ImagePostResponse(BaseModel):
 class Contributors(BaseModel):
     name: str
     github_profile: HttpUrl
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: str = None
+    scopes: List[str] = []
+
+
+class User(BaseModel):
+    username: str
+    email: str = None
+    full_name: str = None
+    disabled: bool = None
+    super_user: bool = False
+
+
+class UserInDB(User):
+    hashed_password: str
