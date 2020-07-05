@@ -49,7 +49,7 @@ export default function GeojsonLayer({lat, lng, maxDist, cluster}) {
                                 :
                                 <p></p>
                             }
-                            <p style={{'font-size': "16px"}}>{f.story.content}
+                            <p style={{'font-size': "12px"}}>{f.story.content}
                             </p>
 
                         </Card>

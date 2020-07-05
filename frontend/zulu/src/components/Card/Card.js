@@ -57,9 +57,9 @@ const styles = {
     width: '100%',
     cursor: 'pointer',
     transition: '0.5s transform ease',
-    border: 'dotted',
     WebkitTransition: '-webkit-transform 0.5s ease',
-    padding: "15px",
+    padding: "5px",
+    listStyleType:"none",
 };
 
 export default Card;

@@ -1,0 +1,9 @@
+.wiki{
+    direction: rtl;
+    max-width: 20px;
+    height: 20px;
+}
+.leaflet-popup-tip {
+    width: 0px;
+    height: 0px;
+  }
