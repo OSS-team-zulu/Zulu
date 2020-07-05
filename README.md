@@ -67,7 +67,7 @@ Afterwards:
 
  - FE lead - **Joshua Herskowitz** -  https://github.com/jherskow
  - Frameworks + QA  - **Batkiller Ariel** -
- - Security - **Nitai Mordechai** -
+ - Security - **Nitai Mordechai** - https://github.com/Nitay880
  - Data Science & BI - **Matanel Oren** - https://github.com/matanel-oren
  - BE lead- **Nadav Goldin** - https://github.com/nvgoldin
 
