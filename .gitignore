@@ -161,4 +161,3 @@ yarn-error.log*
 *.swp
 *.code-workspace
 .vscode/*
-/.python-version

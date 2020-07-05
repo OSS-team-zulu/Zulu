@@ -9,6 +9,7 @@ import {Container} from "react-floating-action-button";
 import {Fab} from '@material-ui/core';
 import {FaPlus} from "react-icons/fa";
 import { MyLocationIcon } from "../../Icons/Icon.MyLocation";
+import axios from "axios";
 
 L.Icon.Default.imagePath = "https://unpkg.com/leaflet@1.5.0/dist/images/";
 
@@ -85,36 +86,69 @@ class MapComponent extends Component {
       let fileName = this.fileInput?.current?.files[0]?.name;
       let hasFile = (typeof fileName !== 'undefined');
 
-      let submitURL = "http://localhost:8342/api/point?longitude=" + this.state.lng + "&latitude=" + this.state.lat + "&max_distance=5000";
+      const STORY_POINT_API_URL = "http://localhost:8342/api/story/point";
+      const IMAGE_API_URL = "http://localhost:8342/api/story/image";
 
       alert('A story was submitted:\ntitle:\n' + this.state.storyTitle +'\nbody\n'+ this.state.storyBody +'\n\nlat: '+ this.state.lat +'\nlong:'+ this.state.lng);
       if (hasFile) {
         alert(`Selected file - ${fileName}`);
       }
 
-      if (hasFile) {
+      let imageId = null;
 
+      if (hasFile) { // todo get photo id
+        var bodyFormData = new FormData();
+        bodyFormData.set('image', fileName);
+
+        axios({
+          method: 'post',
+          url: IMAGE_API_URL,
+          data: bodyFormData,
+          headers: {'Content-Type': 'multipart/form-data' }
+          })
+          .then(function (response) {
+              //handle success
+              imageId = response.id;
+              console.log(response);
+          })
+          .catch(function (response) {
+              //handle error
+              console.log(response);
+              alert('there was a problem adding your image, please try again soon.');
+        });
       }
-      let post_body ={
-        "user_id": "string", //todo fix
+
+      let post = {
+        "user_id": "string", //todo fix user id
         "longitude": this.state.lng,
         "latitude": this.state.lat,
         "story": {
           "title": this.state.storyTitle,
           "content": this.state.storyBody,
-          "image_id": "string"
         }
       };
 
-      let post_request = fetch(submitURL, {
-        method: "POST",
-        body: JSON.stringify(post_body),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
+      if (imageId != null) {
+        post.story.image_id = imageId;
+      }
 
-      // todo - put post here
+      axios({
+          method: 'post',
+          url: STORY_POINT_API_URL,
+          data: post,
+          headers: {'Content-Type': 'application/json' }
+          })
+          .then(function (response) {
+              //handle success
+              alert('Successfully posted story!');
+              console.log(response);
+          })
+          .catch(function (response) {
+              //handle error
+              alert('there was a problem posting this story, please try again soon.');
+              console.log(response);
+        });
+
     }
 
     componentDidMount() {
