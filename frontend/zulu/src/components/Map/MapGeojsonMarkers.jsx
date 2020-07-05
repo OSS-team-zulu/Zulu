@@ -142,7 +142,6 @@ class MapComponent extends Component {
         }
 
         return (
-            <div>
             <Map zoom={this.state.zoom} center={center}>
                 <div className="leaflet-bottom leaflet-right buttons-container">
                     <Container>
@@ -203,7 +202,6 @@ class MapComponent extends Component {
                     </Popup>
                 </Marker>
             </Map>
-            </div>
         );
     }
 
