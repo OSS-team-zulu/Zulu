@@ -1,0 +1,5 @@
+#!/bin/bash
+source zulu/bin/activate
+docker-compose up -d mongo
+cd backend
+PYTHONPATH=$PYTHONPATH:$PWD python zulu/server.py
