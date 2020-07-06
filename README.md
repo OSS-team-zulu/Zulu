@@ -62,7 +62,7 @@ Afterwards:
 ## Team Info
 
  - FE lead - **Joshua Herskowitz** -  https://github.com/jherskow
- - Frameworks + QA  - **Batkiller Ariel** -
+ - Frameworks + QA  - **Batkiller Ariel** -https://github.com/BatkillerAriel
  - Security - **Nitai Mordechai** - https://github.com/Nitay880
  - Data Science & BI - **Matanel Oren** - https://github.com/matanel-oren
  - BE lead- **Nadav Goldin** - https://github.com/nvgoldin
