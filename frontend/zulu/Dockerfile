@@ -3,6 +3,7 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY . ./
+RUN npm install
 RUN npm install react-scripts -g 
 RUN npm run build
 
