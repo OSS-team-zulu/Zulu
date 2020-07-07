@@ -8,9 +8,9 @@ import {CardComponent} from "../CardComponent/CardComponent";
 
 var fetchData = function fetchData(lat, lng, maxDist, options) {
     const url = "https://en.wikipedia.org/w/api.php?action=query&generator=geosearch&prop=coordinates%7C" +
-    "pageimages%7Cextracts&exintro=&explaintext=true&ggscoord=" + lat + "%7C" + lng + "&ggsradius=" + maxDist + "&format=json"
+        "pageimages%7Cextracts&exintro=&explaintext=true&ggscoord=" + lat + "%7C" + lng + "&ggsradius=" + maxDist + "&format=json"
     var request = fetch(url, options).then(r => r.json());
-    
+
     return request.then(r =>  {
 
         if (r.hasOwnProperty("query")){
@@ -19,7 +19,7 @@ var fetchData = function fetchData(lat, lng, maxDist, options) {
         else{
             return [];
         }
-        });    
+    });
 }
 
 function get_comments(){
@@ -35,7 +35,7 @@ export default function GeoWikipediaLayer({lat, lng, maxDist, cluster}) {
         if (lat && lng && maxDist) {
             const abortController = new AbortController();
 
-                fetchData(lat,lng, maxDist, {signal: abortController.signal}).then(data => {
+            fetchData(lat,lng, maxDist, {signal: abortController.signal}).then(data => {
                 setData(data);
             });
 
@@ -48,7 +48,7 @@ export default function GeoWikipediaLayer({lat, lng, maxDist, cluster}) {
     }, [lat, lng, maxDist]);
 
     var GroupComponent = cluster ? MarkerClusterGroup : FeatureGroup;
-    
+
     return (
         <GroupComponent>
 
