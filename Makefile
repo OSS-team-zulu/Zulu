@@ -1,7 +1,7 @@
 
 install:
-	pip install -r backend/requirements.txt
-	pip install -r backend/test-requirements.txt
+	pip3 install -r backend/requirements.txt
+	pip3 install -r backend/test-requirements.txt
 	cd frontend/zulu; npm install
 
 run_full:
@@ -13,9 +13,9 @@ build_full:
 run_backend:
 	docker-compose up -d mongo
 ifeq ($(OS), Windows_NT)
-	cd backend && set PYTHONPATH=. && python zulu/server.py
+	cd backend && set PYTHONPATH=. && python3 zulu/server.py
 else
-	cd backend; PYTHONPATH=$(PYTHONPATH):$(PWD) python zulu/server.py
+	cd backend; PYTHONPATH=$(PYTHONPATH):$(PWD) python3 zulu/server.py
 endif
 	
 run_frontend:
