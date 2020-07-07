@@ -19,7 +19,6 @@ class StoryService {
   }
 
   postUserStory(longitude, latitude, title, content, image_id) {
-    alert(`postUserStory - ${image_id}`);
     return axios.post(API_URL + '/story/point',
       {
         longitude: longitude,
