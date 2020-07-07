@@ -84,6 +84,8 @@ class MapComponent extends Component {
   }
 
   async handleSubmit(event) {
+    this.closeModal();
+    
     event.preventDefault();
     let file = this.fileInput?.current?.files[0];
     let hasFile = (typeof file !== 'undefined');
