@@ -87,9 +87,13 @@ class MapComponent extends Component {
       let fileName = this.fileInput?.current?.files[0]?.name;
       let hasFile = (typeof fileName !== 'undefined');
 
-      alert('A story was submitted:\ntitle:\n' + this.state.storyTitle +'\nbody\n'+ this.state.storyBody +'\n\nlat: '+ this.state.lat +'\nlong:'+ this.state.lng);
-      if (hasFile) {
-        alert(`Selected file - ${fileName}`);
+      let debug = false;
+
+      if (debug) {
+        alert('A story was submitted:\ntitle:\n' + this.state.storyTitle +'\nbody\n'+ this.state.storyBody +'\n\nlat: '+ this.state.lat +'\nlong:'+ this.state.lng);
+        if (hasFile) {
+          alert(`Selected file - ${fileName}`);
+        }
       }
 
       let imageId = null;
