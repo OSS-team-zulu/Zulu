@@ -135,7 +135,7 @@ In order to load a sample data from Israel:
 	```
 
 ### Running tests
-Run:
+Run (**warning**: the tests would remove the DB data):
 ```shell
 make run_tests
 ```
