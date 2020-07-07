@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal } from "react-bootstrap";
+import { ListGroup, ListGroupItem, Button, FormGroup, FormControl, ControlLabel, Modal } from "react-bootstrap";
 import L from 'leaflet';
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import Basemap from './Basemaps';
@@ -26,7 +26,7 @@ class MapComponent extends Component {
       basemap: 'dark',
       time: Date.now(),
       geojsonvisible: false,
-      showModal1: false,
+      showModal: false,
       storyTitle: "",
       storyBody: "",
     };
@@ -140,11 +140,11 @@ class MapComponent extends Component {
       15000);
   };
   showModal = () => {
-    this.setState({ showModal1: true })
+    this.setState({ showModal: true })
   };
 
   closeModal() {
-    this.setState({ showModal1: false })
+    this.setState({ showModal: false })
   }
   render() {
     var center = [this.state.lat, this.state.lng];
@@ -170,7 +170,7 @@ class MapComponent extends Component {
           </Container>
         </div>
         {
-          <Modal position={[this.state.lat, this.state.lng]} show={this.state.showModal1} onHide={this.closeModal.bind(this)}>
+          <Modal position={[this.state.lat, this.state.lng]} show={this.state.showModal} onHide={this.closeModal.bind(this)}>
             <form onSubmit={this.handleSubmit}>
               <h3> Add your Story. </h3>
               <label>
