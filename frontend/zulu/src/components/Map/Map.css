@@ -42,10 +42,3 @@ body,
     padding: 4px;
     border-radius: 3px;
 }
-.modal-content{
-        width: 70% !important;
-    margin: auto !important;
-    padding: 30px 0px !important;
-    text-align: center !important;
-    border-radius: 15px;
-}
