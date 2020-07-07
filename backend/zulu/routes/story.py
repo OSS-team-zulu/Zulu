@@ -74,4 +74,4 @@ def add_image(image: UploadFile = File(...),
         'content_type': image.content_type,
         'filename': image.filename
     })
-    return {'id': str(image_id), 'filename': image.filename}
+    return {'image_id': str(image_id), 'filename': image.filename}

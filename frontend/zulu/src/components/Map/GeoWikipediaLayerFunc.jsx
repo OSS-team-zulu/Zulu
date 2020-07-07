@@ -9,8 +9,8 @@ var fetchData = function fetchData(lat, lng, maxDist, options) {
     const url = "https://en.wikipedia.org/w/api.php?action=query&generator=geosearch&prop=coordinates%7C" +
     "pageimages%7Cextracts&exintro=&ggscoord=" + lat + "%7C" + lng + "&ggsradius=" + maxDist + "&format=json"
     var request = fetch(url, options).then(r => r.json());
-    
-    return request.then(r => Object.values(r.query.pages));    
+
+    return request.then(r => Object.values(r.query.pages));
 }
 
 
@@ -56,10 +56,10 @@ export default function GeoWikipediaLayer({lat, lng, maxDist, cluster}) {
                         {
                         <Card background='#2980B9' height="400">
                             <h1>{f.title}</h1>
-                            { f.hasOwnProperty('thumbnail') ? 
+                            { f.hasOwnProperty('thumbnail') ?
                                 <img src={parseImagePath(f.thumbnail.source)} style={{maxHeight: "430px", maxWidth: "430px"}}></img>
                                  :
-                                <p></p> 
+                                <p></p>
                             }
                             <div dangerouslySetInnerHTML={{__html: f.extract}} />
 

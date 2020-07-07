@@ -39,7 +39,7 @@ class ImageId(BaseModel):
 
 
 class ImagePostResponse(BaseModel):
-    id: str
+    image_id: str
     filename: str
 
 

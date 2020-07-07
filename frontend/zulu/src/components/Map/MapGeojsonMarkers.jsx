@@ -82,27 +82,22 @@ class MapComponent extends Component {
       });
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
       event.preventDefault();
-      let fileName = this.fileInput?.current?.files[0]?.name;
-      let hasFile = (typeof fileName !== 'undefined');
-
-      alert('A story was submitted:\ntitle:\n' + this.state.storyTitle +'\nbody\n'+ this.state.storyBody +'\n\nlat: '+ this.state.lat +'\nlong:'+ this.state.lng);
-      if (hasFile) {
-        alert(`Selected file - ${fileName}`);
-      }
+      let file = this.fileInput?.current?.files[0];
+      let hasFile = (typeof file !== 'undefined');
 
       let imageId = null;
 
       if (hasFile) { // todo get photo id
-        var bodyFormData = new FormData();
-        bodyFormData.set('image', fileName);
+        let formData = new FormData();
+        formData.append('image', file);
 
-        StoryService.postImage(
-          fileName
+        await StoryService.postImage(
+          formData
         ).then(function (response) {
             //handle success
-            imageId = response.id;
+            imageId = response.data.image_id;
             console.log(response);
         })
         .catch(function (response) {
@@ -133,14 +128,14 @@ class MapComponent extends Component {
     }
 
     componentDidMount() {
-        
+
         this.setLocationState();
 
         // TODO: figure out why this causes all points at GeoJsonLayer
         // component to re-render
         this.selfLocationInterval = setInterval(() => {
-                                this.setLocationState(); 
-                                }, 
+                                this.setLocationState();
+                                },
                                 15000);
       };
      showModal = () => {
@@ -208,7 +203,7 @@ class MapComponent extends Component {
                 <GeojsonLayer lat={center[0]} lng={center[1]} maxDist={5000} cluster={true}/>
 
                 <GeoWikipediaLayer lat={center[0]} lng={center[1]} maxDist={5000} cluster={true}/>
-                
+
 
 
                 <Marker position={center} icon={MyLocationIcon}>
