@@ -112,6 +112,7 @@ class App extends Component {
           </div>
 
         </div>
+        
         <Modal id="about" position={[this.state.lat, this.state.lng]} show={this.state.showAboutModal} onHide={this.closeModal.bind(this)}>
           <b>Zulu - A Local exploration App</b><br />
           <i>A social platform that allows viewing stories based on geographical location</i><br />
