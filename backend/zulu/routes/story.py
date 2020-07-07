@@ -51,9 +51,9 @@ def create_point(location: UserLocationRequest,
 
 
 @api.get("/image")
-def get_image(image_id: ImageId, db=Depends(db)):
+def get_image(image_id: str, db=Depends(db)):
     try:
-        record = db.images.find_one({'_id': ObjectId(image_id.id)})
+        record = db.images.find_one({'_id': ObjectId(image_id)})
     except InvalidId:
         raise HTTPException(status_code=404,
                             detail="Image not found. Id is not valid")
@@ -74,4 +74,4 @@ def add_image(image: UploadFile = File(...),
         'content_type': image.content_type,
         'filename': image.filename
     })
-    return {'id': str(image_id), 'filename': image.filename}
+    return {'image_id': str(image_id), 'filename': image.filename}

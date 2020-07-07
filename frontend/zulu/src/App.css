@@ -15,6 +15,12 @@ label {
   padding: 40px 40px;
 }
 
+.buttons-container {
+    position: absolute;
+    z-index: 2;
+    pointer-events: auto !important;
+}
+
 .card {
   background-color: #f7f7f7;
   padding: 20px 25px 30px;
