@@ -135,8 +135,7 @@ In order to load a sample data from Israel:
 	```
 
 ### Running tests
-1. Make sure MongoDB is up (**warning**: the tests would remove its data)
-2. Run:
-  ```shell
-  make run_tests
-  ```
+Run:
+```shell
+make run_tests
+```
