@@ -6,7 +6,7 @@ import "./App.css";
 import AuthService from "./services/auth.service";
 
 import MapComponent from "./components/Map/MapGeojsonMarkers.jsx";
-import Register from "./components/Login/register.component";
+import Register from  "./components/Login/register.component";
 import LoginWithRouter from "./components/Login/login.component";
 import Profile from "./components/Login/profile.component";
 
@@ -40,7 +40,7 @@ class App extends Component {
 
     return (
       <Router>
-        <div class="container-fluid">
+        <div >
             <div>
                 <nav className="navbar navbar-expand navbar-light bg-primary">
                     <Link to={"/"} className="navbar-brand">
@@ -85,7 +85,7 @@ class App extends Component {
                     )}
                 </nav>
 
-          <div className="container-fluid mt-3">
+          <div >
             <Switch>
               <Route exact path={["/", "/map"]} component={MapComponent} />
               <Route exact path="/login" component={LoginWithRouter} />

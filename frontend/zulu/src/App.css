@@ -1,8 +1,10 @@
 .container-fluid.mt-3 {
   height: 100%;
-  width: 100%
+  width: 100%;
 }
-
+.container-fluid{
+  background-color:white;
+}
 label {
   display: block;
   margin-top: 10px;
