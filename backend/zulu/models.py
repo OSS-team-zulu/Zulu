@@ -32,17 +32,21 @@ class UserLocationResponse(BaseModel):
     geometry: GeoJSONPoint
     story: UserStory
     user_id: str
+
+
 class CommentPostResponse(BaseModel):
     story_id: str
-    comment: str =None
+    comment: str = None
     user_name: str = None
-    insertion_date:datetime.date=None
-    is_wiki:bool=False
+    insertion_date: datetime.date = None
+    is_wiki: bool = False
+
 
 class CommentModel(BaseModel):
     story_id: str
     content: str
-    is_wiki:bool =False
+    is_wiki: bool = False
+
 
 class ImageId(BaseModel):
     id: str
@@ -62,8 +66,10 @@ class Token(BaseModel):
     access_token: str
     token_type: str
 
+
 class StoryId(BaseModel):
     id: str
+
 
 class TokenData(BaseModel):
     username: str = None
@@ -76,6 +82,7 @@ class User(BaseModel):
     full_name: str = None
     disabled: bool = None
     super_user: bool = False
+    about_me: str = None
 
 
 class UserInDB(User):

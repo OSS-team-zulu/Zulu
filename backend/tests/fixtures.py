@@ -15,7 +15,8 @@ def user_data():
     return dict(username='zulu',
                 password='uluz',
                 email='momo@zulu.com',
-                full_name='Zulu Uluz')
+                full_name='Zulu Uluz',
+                about_me="I'm a test user")
 
 
 @pytest.fixture

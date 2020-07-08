@@ -19,6 +19,7 @@ def test_user_me(client, some_user, user_data):
             'grant_type': 'password',
             'username': user_data['username'],
             'password': user_data['password'],
+            'about_me': user_data['about_me']
         },
         headers={'content-type': "application/x-www-form-urlencoded"})
 
@@ -31,3 +32,4 @@ def test_user_me(client, some_user, user_data):
     response.raise_for_status()
     user = response.json()
     assert user['username'] == user_data['username']
+    assert user['about_me'] == user_data['about_me']
