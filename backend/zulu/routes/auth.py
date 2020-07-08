@@ -9,7 +9,7 @@ from pydantic.networks import EmailStr
 
 from zulu.auth_utils import (authenticate_user, create_access_token,
                              get_current_active_user, get_password_hash,
-                             get_user)
+                             get_user, AuthenticationError)
 from zulu.db_tools import users_db
 from zulu.models import Token, User
 
@@ -17,11 +17,11 @@ api = APIRouter()
 
 
 @api.post("/token", response_model=Token)
-async def login_for_access_token(
-        form_data: OAuth2PasswordRequestForm = Depends(),
-        db=Depends(users_db)):
-    user = authenticate_user(db, form_data.username, form_data.password)
-    if not user:
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(),
+                                 db=Depends(users_db)):
+    try:
+        user = authenticate_user(db, form_data.username, form_data.password)
+    except AuthenticationError:
         raise HTTPException(status_code=400,
                             detail="Incorrect username or password")
     access_token_expires = timedelta(
@@ -45,8 +45,9 @@ async def read_users_me(current_user: User = Depends(get_current_active_user)):
 async def create_user(db=Depends(users_db),
                       password: str = Body(...),
                       email: EmailStr = Body(...),
-                      full_name: str = Body(None),
-                      username: str = Body(...)):
+                      full_name: str = Body(default=None),
+                      username: str = Body(...),
+                      about_me: str = Body(default="")):
     user = get_user(db=db, username=username)
 
     if user:
@@ -58,6 +59,7 @@ async def create_user(db=Depends(users_db),
         'hashed_password': get_password_hash(password),
         'full_name': full_name,
         'username': username,
+        'about_me': about_me,
         'disabled': False,
         'super_user': False,
     })

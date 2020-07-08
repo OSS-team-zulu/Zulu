@@ -1,5 +1,6 @@
 # Modified from: https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/
 from datetime import datetime, timedelta
+from typing import Union, Optional
 
 import jwt
 from dynaconf import settings
@@ -30,18 +31,30 @@ def get_password_hash(password):
     return pwd_context.hash(password)
 
 
-def get_user(db, username: str):
+def get_user(db, username: str) -> Optional[UserInDB]:
     user = db.find_one({'username': username})
     if user:
         return UserInDB(**user)
 
 
-def authenticate_user(db, username: str, password: str):
+class AuthenticationError(Exception):
+    pass
+
+
+class NonExistingUserNameError(AuthenticationError):
+    pass
+
+
+class WrongPasswordError(AuthenticationError):
+    pass
+
+
+def authenticate_user(db, username: str, password: str) -> UserInDB:
     user = get_user(db, username)
     if not user:
-        return False
+        raise NonExistingUserNameError()
     if not verify_password(password, user.hashed_password):
-        return False
+        raise WrongPasswordError()
     return user
 
 
@@ -94,8 +107,7 @@ async def get_current_user(security_scopes: SecurityScopes,
     return user
 
 
-async def get_current_active_user(
-        current_user: User = Security(get_current_user)):
+async def get_current_active_user(current_user: User = Security(get_current_user)):
     if current_user.disabled:
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user

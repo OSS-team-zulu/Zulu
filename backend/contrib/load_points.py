@@ -13,7 +13,8 @@ def main():
     user_data = dict(username=USERNAME,
                      password=PASSWORD,
                      email='israelcities@zulu.com',
-                     full_name='IsraelCities')
+                     full_name='IsraelCities',
+                     about_me="I am a test user")
     response = requests.post(API_SERVER + '/auth/users', json=user_data)
     token_response = requests.post(
         API_SERVER + '/auth/token',
@@ -21,6 +22,7 @@ def main():
             'grant_type': 'password',
             'username': user_data['username'],
             'password': user_data['password'],
+            'about_me': user_data['about_me']
         },
         headers={'content-type': "application/x-www-form-urlencoded"})
 
