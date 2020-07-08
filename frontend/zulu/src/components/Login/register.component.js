@@ -66,7 +66,7 @@ export default class Register extends Component {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangeFullname = this.onChangeFullname.bind(this);// onChangeFullname //
+    this.onChangeFullname = this.onChangeFullname.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
 
@@ -120,7 +120,7 @@ export default class Register extends Component {
         this.state.username,
         this.state.email,
         this.state.password,
-        this.state.fullName             // transfter the fullname //
+        this.state.fullName             
       ).then(
         response => {
           this.setState({
