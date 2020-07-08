@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { ListGroup, ListGroupItem, Button, FormGroup, FormControl, ControlLabel, Modal } from "react-bootstrap";
 import L from 'leaflet';
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import Basemap from './Basemaps';
@@ -83,6 +84,7 @@ class MapComponent extends Component {
   }
 
   async handleSubmit(event) {
+    this.closeModal();
     event.preventDefault();
     let file = this.fileInput?.current?.files[0];
     let hasFile = (typeof file !== 'undefined');
@@ -141,6 +143,11 @@ class MapComponent extends Component {
   showModal = () => {
     this.setState({ showModal: true })
   };
+
+  closeModal() {
+    this.setState({ showModal: false })
+  }
+
   render() {
     var center = [this.state.lat, this.state.lng];
 
@@ -164,8 +171,9 @@ class MapComponent extends Component {
             </Fab>
           </Container>
         </div>
-        {this.state.showModal &&
-          <Popup position={[this.state.lat, this.state.lng]}>
+        {
+          <Modal position={[this.state.lat, this.state.lng]} show={this.state.showModal} onHide={this.closeModal.bind(this)}>
+
             <form onSubmit={this.handleSubmit}>
               <h3> Add your Story. </h3>
               <label>
@@ -184,14 +192,16 @@ class MapComponent extends Component {
               <label>
                 <br />
                       Add a photo: (optional) <br />
-                <input type="file" ref={this.fileInput} />
+                <input type="file" style={{ marginRight: "-95px" }} ref={this.fileInput} />
+
                 <br />
               </label>
               <br />
               <br />
               <input type="submit" value="Submit" />
             </form>
-          </Popup>}
+          </Modal>}
+
 
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
