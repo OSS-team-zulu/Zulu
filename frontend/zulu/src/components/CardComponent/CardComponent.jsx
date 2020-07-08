@@ -2,10 +2,8 @@ import React from "react";
 import Card from "../Card/Card";
 import * as PropTypes from "prop-types";
 import axios from "axios";
-
-
-import authHeader from '../../services/auth-header';
-
+import StoryService from '../../services/story.service'
+import storyService from "../../services/story.service";
 const API_URL = "http://localhost:8342/api";
 
 export class CommentComponent extends React.Component {
@@ -32,36 +30,18 @@ export class CardComponent extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
-        this.get_comments()
+       storyService.GetStoryComments(this.props.f.pageid).then(response => this.setState({comments:response.data}));
+
+    
     }
 
     handleChange(event) {
         this.setState({value: event.target.value});
     }
 
-    handleSubmit(event) {
-        axios.post(API_URL + '/story/comment', {
-
-                story_id: this.props.f.pageid,
-                content: this.state.value,
-                is_wiki: true,
-            },
-            {headers: authHeader()}
-        ).then(response => (console.log(response)));
-        event.preventDefault();
-        }
-
-    get_comments() {
-        return axios.get(API_URL + '/story/comment', {
-            params: {
-                id: this.props.f.pageid
-            },
-            headers: authHeader()
-        },).then(response => {
-            this.setState({comments:response.data});
-        })
+    async handleSubmit(event) {
+        storyService.PostUserComment(this.props.f.pageid,this.state.value,true);
     }
-
 
     parseImagePath(thumbnailPath) {
         const lastSlashIndex = thumbnailPath.lastIndexOf("/");
