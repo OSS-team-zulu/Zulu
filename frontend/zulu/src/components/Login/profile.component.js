@@ -8,6 +8,10 @@ export default class Profile extends Component {
     this.state = { currentUser: AuthService.getCurrentUser() };
 
   }
+
+
+
+
   render() {
     console.log(this.state.currentUser);
     return (
@@ -19,12 +23,19 @@ export default class Profile extends Component {
         </header>
         <p>
           <strong>Full name:</strong>{" "}
-          {this.state.currentUser.full_name}
+          {this.state.currentUser.fullname}
         </p>
         <p>
           <strong>Email:</strong>{" "}
           {this.state.currentUser.email}
         </p>
+
+        <p>
+          <strong>About Me:</strong>{" "}
+          {this.state.currentUser.fullname} ! What can you tell us about you?
+        </p>
+
+
       </div>
     );
   }

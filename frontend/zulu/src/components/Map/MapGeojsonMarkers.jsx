@@ -85,7 +85,6 @@ class MapComponent extends Component {
 
   async handleSubmit(event) {
     this.closeModal();
-    
     event.preventDefault();
     let file = this.fileInput?.current?.files[0];
     let hasFile = (typeof file !== 'undefined');
@@ -148,6 +147,7 @@ class MapComponent extends Component {
   closeModal() {
     this.setState({ showModal: false })
   }
+
   render() {
     var center = [this.state.lat, this.state.lng];
 
@@ -173,6 +173,7 @@ class MapComponent extends Component {
         </div>
         {
           <Modal position={[this.state.lat, this.state.lng]} show={this.state.showModal} onHide={this.closeModal.bind(this)}>
+
             <form onSubmit={this.handleSubmit}>
               <h3> Add your Story. </h3>
               <label>
@@ -192,6 +193,7 @@ class MapComponent extends Component {
                 <br />
                       Add a photo: (optional) <br />
                 <input type="file" style={{ marginRight: "-95px" }} ref={this.fileInput} />
+
                 <br />
               </label>
               <br />
@@ -199,6 +201,7 @@ class MapComponent extends Component {
               <input type="submit" value="Submit" />
             </form>
           </Modal>}
+
 
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
