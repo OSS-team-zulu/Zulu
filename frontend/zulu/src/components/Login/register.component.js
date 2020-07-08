@@ -3,6 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
+import { isAlpha } from "validator";
 
 import AuthService from "../../services/auth.service";
 
@@ -26,7 +27,19 @@ const email = value => {
   }
 };
 
+
 const vusername = value => {
+  if (value.length < 3 || value.length > 20 || !isAlpha(value)) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        The full name must be between 3 and 20 characters, and only letters are allowed.
+      </div>
+    );
+  }
+};
+
+// Validator for fullname //
+const vfullname = value => {
   if (value.length < 3 || value.length > 20) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -35,6 +48,8 @@ const vusername = value => {
     );
   }
 };
+
+
 
 const vpassword = value => {
   if (value.length < 6 || value.length > 40) {
@@ -51,6 +66,7 @@ export default class Register extends Component {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeFullname = this.onChangeFullname.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
 
@@ -59,6 +75,7 @@ export default class Register extends Component {
       email: "",
       password: "",
       successful: false,
+      fullName: "",
       message: ""
     };
   }
@@ -66,6 +83,13 @@ export default class Register extends Component {
   onChangeUsername(e) {
     this.setState({
       username: e.target.value
+    });
+  }
+
+// onChangeFullname //
+  onChangeFullname(e) { 
+    this.setState({
+      fullName: e.target.value
     });
   }
 
@@ -95,7 +119,8 @@ export default class Register extends Component {
       AuthService.register(
         this.state.username,
         this.state.email,
-        this.state.password
+        this.state.password,
+        this.state.fullName             
       ).then(
         response => {
           this.setState({
@@ -150,6 +175,23 @@ export default class Register extends Component {
                     validations={[required, vusername]}
                   />
                 </div>
+
+
+
+                <div className="form-group"> 
+                  <label htmlFor="fullname">fullname</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="fullname"
+                    value={this.state.fullname}
+                    onChange={this.onChangeFullname}
+                    validations={[required, vfullname]}
+                  />
+                </div>
+
+
+
 
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
