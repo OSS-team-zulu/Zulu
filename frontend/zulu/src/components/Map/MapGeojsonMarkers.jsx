@@ -85,7 +85,7 @@ class MapComponent extends Component {
 
   async handleSubmit(event) {
     this.closeModal();
-    
+
     event.preventDefault();
     let file = this.fileInput?.current?.files[0];
     let hasFile = (typeof file !== 'undefined');
@@ -114,7 +114,16 @@ class MapComponent extends Component {
     let lat = this.state.lat;
     let title = this.state.storyTitle;
     let content = this.state.storyBody;
-
+    if (!title) {
+      alert("You must enter story title!");
+      this.setState({ showModal: true });
+      return;
+    }
+    if (!content) {
+      alert("You must enter story content!");
+      this.setState({ showModal: true });
+      return;
+    }
     StoryService.postUserStory(
       lng, lat, title, content, imageId
     ).then(function (response) {
