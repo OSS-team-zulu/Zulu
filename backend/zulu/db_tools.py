@@ -13,6 +13,10 @@ def db():
     client = MongoClient(settings.MONGO_URI).geo_data
     yield client
 
+def comments_db():
+    client = MongoClient(settings.MONGO_URI).geo_data
+    collection = client.comments
+    yield collection
 
 def points_db():
     client = MongoClient(settings.MONGO_URI).geo_data

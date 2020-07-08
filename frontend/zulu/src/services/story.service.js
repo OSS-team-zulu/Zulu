@@ -19,25 +19,26 @@ class StoryService {
   }
 
   postUserStory(longitude, latitude, title, content, image_id) {
-    return axios.post(API_URL + '/story/point', {
-      params: {
+    return axios.post(API_URL + '/story/point',
+      {
         longitude: longitude,
         latitude: latitude,
-        content: content,
-        title: title,
-        image_id: image_id
+        story: {
+          content: content,
+          title: title,
+          image_id: image_id
+        }
       },
-      headers: authHeader()
-    })
+      {headers: authHeader()}
+    )
   }
 
-  postImage(image) {
-    return axios.post(API_URL + '/story/image', {
-      params: {
-        image: image,
-      },
-      headers: authHeader()
-    })
+  async postImage(formData) {
+    return axios.post(API_URL + '/story/image', formData,
+      {
+      headers: {...authHeader(), ...{'Content-Type': 'multipart/form-data'}}
+      }
+    )
   }
 
 }

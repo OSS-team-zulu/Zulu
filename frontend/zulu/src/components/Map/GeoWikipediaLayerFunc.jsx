@@ -10,7 +10,6 @@ var fetchData = function fetchData(lat, lng, maxDist, options) {
     const url = "https://en.wikipedia.org/w/api.php?action=query&generator=geosearch&prop=coordinates%7C" +
     "pageimages%7Cextracts&exintro=&explaintext=true&ggscoord=" + lat + "%7C" + lng + "&ggsradius=" + maxDist + "&format=json"
     var request = fetch(url, options).then(r => r.json());
-    
     return request.then(r =>  {
 
         if (r.hasOwnProperty("query")){

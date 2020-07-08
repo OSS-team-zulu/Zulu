@@ -1,6 +1,6 @@
 import io
 from typing import List
-
+from datetime import date
 from bson.errors import InvalidId
 from bson.objectid import ObjectId
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
@@ -9,8 +9,8 @@ from starlette.responses import StreamingResponse
 
 from zulu.auth_utils import get_current_active_user
 from zulu.db_tools import db
-from zulu.models import (ImageId, ImagePostResponse, User, UserLocationRequest,
-                         UserLocationResponse)
+from zulu.models import (ImageId,StoryId, CommentPostResponse,ImagePostResponse, User, UserLocationRequest,
+                         UserLocationResponse,CommentModel)
 
 api = APIRouter()
 
@@ -51,9 +51,9 @@ def create_point(location: UserLocationRequest,
 
 
 @api.get("/image")
-def get_image(image_id: ImageId, db=Depends(db)):
+def get_image(image_id: str, db=Depends(db)):
     try:
-        record = db.images.find_one({'_id': ObjectId(image_id.id)})
+        record = db.images.find_one({'_id': ObjectId(image_id)})
     except InvalidId:
         raise HTTPException(status_code=404,
                             detail="Image not found. Id is not valid")
@@ -74,4 +74,32 @@ def add_image(image: UploadFile = File(...),
         'content_type': image.content_type,
         'filename': image.filename
     })
-    return {'id': str(image_id), 'filename': image.filename}
+    return {'image_id': str(image_id), 'filename': image.filename}
+
+@api.get("/comment", response_model=List[CommentPostResponse])
+def get_comments(id:str, db=Depends(db)):
+    try:
+        print(id)
+        comments=[comment for comment in db.comments.find({'story_id': id})]
+    except :
+        raise HTTPException(status_code=404,
+                            detail="Id is not valid")
+    if not comments:
+        raise HTTPException(status_code=404, detail="Story not found with id "+id)
+    return comments
+
+@api.post("/comment",
+          status_code=status.HTTP_201_CREATED)
+def add_comment(comment:CommentModel,
+              db=Depends(db),current_user: User = Depends(get_current_active_user)):
+
+    print(comment.is_wiki)
+
+    comment_id = db.comments.insert({
+        'story_id': comment.story_id,
+        'is_wiki':comment.is_wiki,
+        'comment': comment.content,
+        'insertion_date': str(date.today()),
+        'user_name': current_user.username
+    })
+    return {}

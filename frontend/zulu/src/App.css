@@ -15,6 +15,12 @@ label {
   padding: 40px 40px;
 }
 
+.buttons-container {
+    position: absolute;
+    z-index: 2;
+    pointer-events: auto !important;
+}
+
 .card {
   background-color: #f7f7f7;
   padding: 20px 25px 30px;
@@ -28,6 +34,7 @@ label {
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
+
 .profile-img-card {
   width: 96px;
   height: 96px;
@@ -36,4 +43,10 @@ label {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+}
+#about .modal-content{
+  width: 100% !important;
+  text-align: left !important;
+  
+  padding: 30px !important;
 }

@@ -1,5 +1,5 @@
 from typing import List
-
+import datetime
 from geojson import Point
 from pydantic import BaseModel, HttpUrl
 
@@ -32,14 +32,24 @@ class UserLocationResponse(BaseModel):
     geometry: GeoJSONPoint
     story: UserStory
     user_id: str
+class CommentPostResponse(BaseModel):
+    story_id: str
+    comment: str =None
+    user_name: str = None
+    insertion_date:datetime.date=None
+    is_wiki:bool=False
 
+class CommentModel(BaseModel):
+    story_id: str
+    content: str
+    is_wiki:bool =False
 
 class ImageId(BaseModel):
     id: str
 
 
 class ImagePostResponse(BaseModel):
-    id: str
+    image_id: str
     filename: str
 
 
@@ -52,6 +62,8 @@ class Token(BaseModel):
     access_token: str
     token_type: str
 
+class StoryId(BaseModel):
+    id: str
 
 class TokenData(BaseModel):
     username: str = None

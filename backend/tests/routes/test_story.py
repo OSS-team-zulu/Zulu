@@ -8,7 +8,7 @@ from zulu import db_tools
 
 BASE_TESTS_DIR = os.path.join('tests')
 
-_Image = namedtuple('_Image', 'id, path, name')
+_Image = namedtuple('_Image', 'image_id, path, name')
 
 
 @pytest.fixture
@@ -99,7 +99,7 @@ def loaded_images(authenticated_client):
 
                 assert response.status_code == 201
                 images.append(
-                    _Image(id=response.json()['id'],
+                    _Image(image_id=response.json()['image_id'],
                            name=image_fname,
                            path=image_path))
     return images
@@ -192,7 +192,8 @@ def test_post_image(authenticated_client):
     assert response_json['filename'] == image_name
 
     response = authenticated_client.get('/api/story/image',
-                                        json={'id': response_json['id']})
+                                        params={'image_id': response_json['image_id']})
+
     response.raise_for_status()
     assert response.content == open(image_path, 'rb').read()
 
@@ -229,7 +230,7 @@ def test_post_points_with_images(more_data, authenticated_client):
             'story': {
                 'content': points[i]['story']['content'],
                 'title': points[i]['story']['content'],
-                'image_id': response.json()['id']
+                'image_id': response.json()['image_id']
             }
         }
         response = authenticated_client.post('/api/story/point', json=data)
@@ -247,7 +248,7 @@ def test_get_multi_points_with_multi_images(test_data, authenticated_client,
             'story': {
                 'content': point['user_id'].upper(),
                 'title': point['user_id'].lower(),
-                'image_id': image.id
+                'image_id': image.image_id
             }
         }
         response = authenticated_client.post('/api/story/point', json=data)
@@ -270,7 +271,7 @@ def test_get_multi_points_with_multi_images(test_data, authenticated_client,
 
     assert len(result) == len(loaded_images)
 
-    assert sorted(result) == sorted([image.id for image in loaded_images])
+    assert sorted(result) == sorted([image.image_id for image in loaded_images])
 
 
 def test_get_contributors(client):
