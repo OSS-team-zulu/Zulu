@@ -70,7 +70,7 @@ Afterwards:
 
 # Running Zulu
 
-## Developing requirements
+## Developing Requirements
 
  - [docker-compose](https://docs.docker.com/compose/install/), or [Docker Desktop](https://docs.docker.com/docker-for-windows/install/) if you have Windows 10 (version 2004 and above) (just make sure it is running before you start developing).
  - python 3.8
