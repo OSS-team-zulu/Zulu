@@ -24,7 +24,7 @@
     "react-leaflet": "1.9.1",
     "react-leaflet-markercluster": "^1.1.8",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.0",
+    "react-scripts": "^5.0.1",
     "react-validation": "^3.0.7",
     "validator": "^13.1.1"
   },
